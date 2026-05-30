@@ -1,0 +1,41 @@
+/node_modules
+/public/hot
+/public/storage
+/storage/*.key
+/vendor
+.env
+.phpunit.result.cache
+Homestead.json
+Homestead.yaml
+npm-debug.log
+yarn-error.log
+composer.phar
+/bootstrap/cache/*.php
+/bootstrap/cache/*.json/bootstrap/cache/*
+!/bootstrap/cache/.gitignore
+
+# Laravel cache
+/bootstrap/cache/*
+
+
+
+🔥 What you can do next
+
+If you want to level up your workflow:
+
+1. Future updates
+git add .
+git commit -m "update"
+git push
+2. Check status anytime
+git status
+3. See commits history
+git log --oneline
+
+If you want, I can now help you:
+
+deploy this Laravel LMS online (cPanel / shared hosting)
+set up database on server
+fix common Laravel hosting errors
+or 
+connect it to a live domain
