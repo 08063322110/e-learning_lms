@@ -11,4 +11,8 @@ npm-debug.log
 yarn-error.log
 composer.phar
 /bootstrap/cache/*.php
-/bootstrap/cache/*.json
+/bootstrap/cache/*.json/bootstrap/cache/*
+!/bootstrap/cache/.gitignore
+
+# Laravel cache
+/bootstrap/cache/*
