@@ -31,9 +31,23 @@
     </a>
 </li>
 
-@if(Auth::user()->role_id < 3)
+{{-- Moderator --}}
+@if (Auth::user()->role_id < 4)
+    
+<li class="nav-item">
+    <a href="{{ route('courses.index') }}"
+       class="nav-link {{ Request::is('courses*') ? 'active' : '' }}">
+        <i class="nav-icon fas fa-book"></i>
+        <p>My Courses</p>
+    </a>
+</li>
+
+@endif
 
 {{-- Admin Section --}}
+
+@if(Auth::user()->role_id < 3)
+
 <li class="nav-item">
     <a href="{{ route('courses.index') }}"
        class="nav-link {{ Request::is('courses*') ? 'active' : '' }}">
