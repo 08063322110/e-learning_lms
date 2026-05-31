@@ -13,22 +13,27 @@
         </div>
     </div>
 </form>
+
 <li class="nav-item">
     <a href="{{ route('categories.index') }}"
        class="nav-link {{ Request::is('categories*') ? 'active' : '' }}">
         <i class="nav-icon fas fa-folder"></i>
-        <p>Categories</p>
+        <p>All Courses</p>
     </a>
 </li>
+
 
 <li class="nav-item">
-    <a href="{{ route('comments.index') }}"
-       class="nav-link {{ Request::is('comments*') ? 'active' : '' }}">
-        <i class="nav-icon fas fa-comments"></i>
-        <p>Comments</p>
+    <a href="{{ route('courseUsers.index') }}"
+       class="nav-link {{ Request::is('courseUsers*') ? 'active' : '' }}">
+        <i class="nav-icon fas fa-user-graduate"></i>
+        <p>Subscriptions</p>
     </a>
 </li>
 
+@if(Auth::user()->role_id < 3)
+
+{{-- Admin Section --}}
 <li class="nav-item">
     <a href="{{ route('courses.index') }}"
        class="nav-link {{ Request::is('courses*') ? 'active' : '' }}">
@@ -37,11 +42,12 @@
     </a>
 </li>
 
+
 <li class="nav-item">
-    <a href="{{ route('courseUsers.index') }}"
-       class="nav-link {{ Request::is('courseUsers*') ? 'active' : '' }}">
-        <i class="nav-icon fas fa-user-graduate"></i>
-        <p>Course Users</p>
+    <a href="{{ route('comments.index') }}"
+       class="nav-link {{ Request::is('comments*') ? 'active' : '' }}">
+        <i class="nav-icon fas fa-comments"></i>
+        <p>Comments</p>
     </a>
 </li>
 
@@ -76,3 +82,13 @@
         <p>Views</p>
     </a>
 </li>
+
+<li class="nav-item">
+    <a href="{{ route('roles.index') }}"
+       class="nav-link {{ Request::is('roles*') ? 'active' : '' }}">
+        <i class="nav-icon fas fa-user-shield"></i>
+        <p>Roles</p>
+    </a>
+</li>
+
+@endif

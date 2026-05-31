@@ -13,13 +13,13 @@
 <!-- First Name Field -->
 <div class="form-group col-sm-6">
     {!! Form::label('first_name', 'First Name:') !!}
-    {!! Form::text('first_name', null, ['class' => 'form-control','maxlength' => 255,'maxlength' => 255]) !!}
+    {!! Form::text('first_name', null, ['class' => 'form-control','maxlength' => 191,'maxlength' => 191]) !!}
 </div>
 
 <!-- Last Name Field -->
 <div class="form-group col-sm-6">
     {!! Form::label('last_name', 'Last Name:') !!}
-    {!! Form::text('last_name', null, ['class' => 'form-control','maxlength' => 255,'maxlength' => 255]) !!}
+    {!! Form::text('last_name', null, ['class' => 'form-control','maxlength' => 191,'maxlength' => 191]) !!}
 </div>
 
 <!-- Gender Field -->
@@ -80,6 +80,12 @@
 <div class="form-group col-sm-6">
     {!! Form::label('view_count', 'View Count:') !!}
     {!! Form::number('view_count', null, ['class' => 'form-control']) !!}
+</div>
+
+<!-- Role Id Field -->
+<div class="form-group col-sm-6">
+    {!! Form::label('role_id', 'Role Id:') !!}
+    {!! Form::number('role_id', null, ['class' => 'form-control']) !!}
 </div>
 
 <!-- Remember Token Field -->

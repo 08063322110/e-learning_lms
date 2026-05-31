@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Model as Model;
 /**
  * Class User
  * @package App\Models
- * @version May 30, 2026, 11:20 am UTC
+ * @version May 31, 2026, 1:06 am UTC
  *
  * @property string $name
  * @property string $email
@@ -19,6 +19,7 @@ use Illuminate\Database\Eloquent\Model as Model;
  * @property string|\Carbon\Carbon $email_verified_at
  * @property string $password
  * @property integer $view_count
+ * @property integer $role_id
  * @property string $remember_token
  */
 class User extends Model
@@ -43,6 +44,7 @@ class User extends Model
         'email_verified_at',
         'password',
         'view_count',
+        'role_id',
         'remember_token'
     ];
 
@@ -63,6 +65,7 @@ class User extends Model
         'email_verified_at' => 'datetime',
         'password' => 'string',
         'view_count' => 'integer',
+        'role_id' => 'integer',
         'remember_token' => 'string'
     ];
 
@@ -74,14 +77,15 @@ class User extends Model
     public static $rules = [
         'name' => 'required|string|max:191',
         'email' => 'required|string|max:191',
-        'first_name' => 'nullable|string|max:255',
-        'last_name' => 'nullable|string|max:255',
+        'first_name' => 'required|string|max:191',
+        'last_name' => 'required|string|max:191',
         'gender' => 'nullable|string|max:191',
         'date_of_birth' => 'nullable',
         'is_subscribed' => 'nullable|boolean',
         'email_verified_at' => 'nullable',
         'password' => 'required|string|max:191',
         'view_count' => 'required|integer',
+        'role_id' => 'required|integer',
         'remember_token' => 'nullable|string|max:100'
     ];
 

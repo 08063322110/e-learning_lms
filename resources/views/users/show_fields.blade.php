@@ -58,6 +58,12 @@
     <p>{{ $user->view_count }}</p>
 </div>
 
+<!-- Role Id Field -->
+<div class="col-sm-12">
+    {!! Form::label('role_id', 'Role Id:') !!}
+    <p>{{ $user->role_id }}</p>
+</div>
+
 <!-- Remember Token Field -->
 <div class="col-sm-12">
     {!! Form::label('remember_token', 'Remember Token:') !!}
