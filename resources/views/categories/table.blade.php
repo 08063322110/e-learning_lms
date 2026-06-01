@@ -39,13 +39,11 @@
         @if(Auth::user()->role_id < 3)
 
         <a href="{{ route('categories.edit', [$category->id]) }}" class='btn btn-default mr-2'><i class="far fa-edit"></i></a>
-    {!! Form::button('<i class="far fa-trash-alt"></i>', ['type' => 'submit', 'class' => 'btn btn-danger ', 'onclick' => "return confirm('Are you sure?')"]) !!}
+    {!! Form::button('<i class="glyphicon glyphicon trash"></i>', ['type' => 'submit', 'class' => 'btn btn-danger ', 'onclick' => "return confirm('Are you sure?')"]) !!}
         @endif
   </div>
-
-                    {!! Form::close() !!}
+    {!! Form::close() !!}
 </div>
 
  @endforeach
 </div>
-

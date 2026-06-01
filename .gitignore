@@ -4,15 +4,14 @@
 /storage/*.key
 /vendor
 .env
+.env.backup
 .phpunit.result.cache
 Homestead.json
 Homestead.yaml
 npm-debug.log
 yarn-error.log
 composer.phar
-/bootstrap/cache/*.php
-/bootstrap/cache/*.json/bootstrap/cache/*
-!/bootstrap/cache/.gitignore
 
 # Laravel cache
 /bootstrap/cache/*
+!/bootstrap/cache/.gitignore

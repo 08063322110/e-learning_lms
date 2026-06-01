@@ -5,7 +5,7 @@
         <div class="container-fluid">
             <div class="row mb-2">
                 <div class="col-sm-6">
-                    <h1>Category Details</h1>
+                    <h1>{{ $category->name }}</h1>
                 </div>
                 <div class="col-sm-6">
                     <a class="btn btn-default float-right"
@@ -21,7 +21,11 @@
         <div class="card">
             <div class="card-body">
                 <div class="row">
+                    
                     @include('categories.show_fields')
+                        <h2 class="text-center w-100">Courses</h2>
+                    @include('courses.table')
+
                 </div>
             </div>
         </div>
