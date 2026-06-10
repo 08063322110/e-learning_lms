@@ -38,7 +38,7 @@
     <a href="{{ route('courses.index') }}"
        class="nav-link {{ Request::is('courses*') ? 'active' : '' }}">
         <i class="nav-icon fas fa-book"></i>
-        <p>My Courses</p>
+        <p>Course Categories</p>
     </a>
 </li>
 
