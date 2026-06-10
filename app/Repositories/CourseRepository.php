@@ -8,7 +8,7 @@ use App\Repositories\BaseRepository;
 /**
  * Class CourseRepository
  * @package App\Repositories
- * @version May 30, 2026, 11:17 am UTC
+ * @version June 3, 2026, 3:44 am UTC
 */
 
 class CourseRepository extends BaseRepository
@@ -20,15 +20,22 @@ class CourseRepository extends BaseRepository
         'user_id',
         'category_id',
         'title',
+        'sub_title',
         'description',
         'about_instructor',
+        'playlist_url',
+        'tags',
+        'photo',
+        'promo-video_url',
+        'creator_status',
+        'admin_status',
+        'what_will_students_learn',
+        'target_students',
+        'requirements',
         'discount_price',
         'actual_price',
-        'playlist_url',
         'view_count',
-        'subscriber_count',
-        'status',
-        'photo'
+        'subscriber_count'
     ];
 
     /**

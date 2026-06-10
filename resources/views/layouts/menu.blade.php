@@ -18,7 +18,7 @@
     <a href="{{ route('categories.index') }}"
        class="nav-link {{ Request::is('categories*') ? 'active' : '' }}">
         <i class="nav-icon fas fa-folder"></i>
-        <p>All Courses</p>
+        <p>Course Categories</p>
     </a>
 </li>
 
@@ -105,4 +105,11 @@
     </a>
 </li>
 
-@endif
+@endif<li class="nav-item">
+    <a href="{{ route('coupons.index') }}"
+       class="nav-link {{ Request::is('coupons*') ? 'active' : '' }}">
+        <p>Coupons</p>
+    </a>
+</li>
+
+

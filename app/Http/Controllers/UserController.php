@@ -8,6 +8,7 @@ use App\Repositories\UserRepository;
 use App\Http\Controllers\AppBaseController;
 use Illuminate\Http\Request;
 use Flash;
+use Auth;
 use Response;
 use Illuminate\Support\Facades\DB;
 
@@ -57,7 +58,7 @@ class UserController extends AppBaseController
     public function store(CreateUserRequest $request)
     {
         $input = $request->all();
-
+        $input['user_id'] = Auth::user()->id;
         $user = $this->userRepository->create($input);
 
         Flash::success('User saved successfully.');

@@ -16,17 +16,35 @@ class CreateCoursesTable extends Migration
         Schema::create('courses', function (Blueprint $table) {
             $table->increments('id');
             $table->integer('user_id');
-            $table->string('category_id');
+
+            //Create Course
+            $table->integer('category_id');
             $table->string('title');
+            $table->string('sub_title')->nullable();
             $table->longText('description');
-            $table->longText('about_instructor');
+            $table->longText('about_instructor')->nullable();
+            $table->string('playlist_url');
+            $table->string('tags')->nullable(); //laravel, php, html
+            $table->string('photo')->nullable;
+            $table->string('promo_video_url')->nullable();
+            $table->string('creator_status')->default(0); //live=1 or live=0
+            $table->string('admin_status')->default(0); //live=1 or live=0
+
+            //target your students
+            $table->longtext('what_will_students_learn')->nullable();
+            $table->longtext('target_students')->nullable();
+            $table->longtext('requirements')->nullable();
+
+            //price and coupons
+
             $table->double('discount_price', 10, 2);
             $table->double('actual_price', 10, 2);
-            $table->string('playlist_url');
+
+            //stats
+
             $table->integer('view_count')->default(0);
             $table->integer('subscriber_count')->default(0);
-            $table->integer('status')->default(0); //live: 1, not live: 0
-            $table->string('photo')->nullable();
+   
             $table->softDeletes(); //deleted_at
             $table->timestamps(); //created_at updated_at
         });

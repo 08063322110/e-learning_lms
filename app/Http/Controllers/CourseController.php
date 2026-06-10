@@ -8,8 +8,9 @@ use App\Repositories\CourseRepository;
 use App\Http\Controllers\AppBaseController;
 use Illuminate\Http\Request;
 use Flash;
+use Auth;
 use Response;
-use Illuminate\Support\Facades\DB;
+use App\Models\Category;
 
 class CourseController extends AppBaseController
 {
@@ -43,7 +44,8 @@ class CourseController extends AppBaseController
      */
     public function create()
     {
-        return view('courses.create');
+    $categories = Category::all();
+        return view('courses.create')->with('categories', $categories);
     }
 
     /**
@@ -56,6 +58,13 @@ class CourseController extends AppBaseController
     public function store(CreateCourseRequest $request)
     {
         $input = $request->all();
+        $input['user_id'] =  Auth::user()->id;
+
+        $input['view_count'] = 0;
+        $input['subscriber_count'] = 0;
+        $input['photo'] = '';
+
+$course = $this->courseRepository->create($input);
 
         $course = $this->courseRepository->create($input);
 
@@ -80,8 +89,6 @@ class CourseController extends AppBaseController
 
             return redirect(route('courses.index'));
         }
-              
-        DB::table('courses')->where('id', $id)->increment('view_count');
 
         return view('courses.show')->with('course', $course);
     }
