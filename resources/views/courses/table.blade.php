@@ -70,8 +70,8 @@
                             '<i class="far fa-trash-alt"></i>',
                             [
                                 'type' => 'submit',
-                                'class' => 'btn btn-danger btn-xs',
-                                'onclick' => "return confirm('Are you sure?')"
+                                'class' => 'btn btn-success btn-xs',
+                                'onclick' => "return confirm('Are you sure want to Approve?')"
                             ]
                         ) !!}
                     </div>
