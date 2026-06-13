@@ -11,6 +11,7 @@ use Flash;
 use Auth;
 use Response;
 use App\Models\Category;
+use App\Models\Course;
 
 class CourseController extends AppBaseController
 {
@@ -29,6 +30,44 @@ class CourseController extends AppBaseController
      *
      * @return Response
      */
+
+    public function approve (Request $request){
+        Course::where('id', $request->course_id)
+        ->update([
+            'admin_status'=>1
+        ]);
+        Flash::success('Course Approved Successfully.');
+        return redirect()->back();
+    }
+
+    public function disapprove(Request $request) {
+        Course::where('id', $request->course_id)
+        ->update([
+            'admin_status'=>0
+        ]);
+        Flash::success('Course Disapproved Successfully.');
+        return redirect()->back();
+    }
+
+     public function publishCourse(Request $request) {
+         Course::where('id', $request->course_id)
+        ->update([
+            'creator_status'=>1
+        ]);
+        Flash::success('Course Published Successfully.');
+        return redirect()->back();
+
+    }
+
+       public function unpublishCourse(Request $request) {
+ Course::where('id', $request->course_id)
+        ->update([
+            'creator_status'=>0
+        ]);
+        Flash::success('Course Unpublished Successfully.');
+        return redirect()->back();
+    }
+
     public function index(Request $request)
     {
         $courses = $this->courseRepository->all();
