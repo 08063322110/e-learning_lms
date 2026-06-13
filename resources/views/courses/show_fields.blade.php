@@ -21,10 +21,31 @@
 <div class="col-md-5">
     {!! Form::label('creator_status', 'Creator Status:') !!}
     <p>
-        @if($course->creator_status == 1)
-             on
+        
+           @if($course->creator_status == 1)
+             Publish
+       {{-- @if(Auth::user()->role_id < 3) --}}
+            
+              {!! Form::open(['route' => ['courses.unpublishCourse', $course->id],'method' => 'post']) !!}   
+                  <input type="hidden" name="course_id" value="{{$course->id}}">
+              {!! Form::button('<i class="far fa-trash-alt"></i> Click to Unpublish', ['type' => 'submit','class' => 'btn btn-danger btn-xs',
+                                'onclick' => "return confirm('Are you sure you want to Unpublish?')"
+                            ]
+                    ) !!}
+              {!! Form::close() !!}
+             {{-- @endif --}}
         @else
-             off
+            Unpublish 
+            {{-- @if(Auth::user()->role_id < 3) --}}
+            
+              {!! Form::open(['route' => ['courses.publishCourse', $course->id],'method' => 'post']) !!}       
+                <input type="hidden" name="course_id" value="{{$course->id}}">
+                    {!! Form::button('<i class="far fa-trash-alt"></i> Click to publish', ['type' => 'submit','class' => 'btn btn-success btn-xs',
+                                'onclick' => "return confirm('Are you sure you want to Approve?')"
+                            ]
+                    ) !!}
+             {!! Form::close() !!}
+             {{-- @endif --}}
         @endif
     </p>
 </div>
@@ -33,10 +54,31 @@
 <div class="col-sm-7">
     {!! Form::label('admin_status', 'Admin Status:') !!}
     <p>
+
            @if($course->admin_status == 1)
-             on
+             Approved
+       @if(Auth::user()->role_id < 3)
+             |
+              {!! Form::open(['route' => ['courses.disapprove', $course->id],'method' => 'post']) !!}   
+                  <input type="hidden" name="course_id" value="{{$course->id}}">
+              {!! Form::button('<i class="far fa-trash-alt"></i> Click to Disapprove', ['type' => 'submit','class' => 'btn btn-danger btn-xs',
+                                'onclick' => "return confirm('Are you sure want to Dispprove?')"
+                            ]
+                    ) !!}
+              {!! Form::close() !!}
+             @endif
         @else
-             off
+            Disapproved 
+            @if(Auth::user()->role_id < 3)
+            |
+              {!! Form::open(['route' => ['courses.disapprove', $course->id],'method' => 'post']) !!}       
+                <input type="hidden" name="course_id" value="{{$course->id}}">
+                    {!! Form::button('<i class="far fa-trash-alt"></i> Click to Approve', ['type' => 'submit','class' => 'btn btn-success btn-xs',
+                                'onclick' => "return confirm('Are you sure want to Approve?')"
+                            ]
+                    ) !!}
+             {!! Form::close() !!}
+             @endif
         @endif
     </p>
 </div>
