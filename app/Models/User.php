@@ -87,7 +87,10 @@ class User extends Model
         'view_count' => 'required|integer',
         'role_id' => 'required|integer',
         'remember_token' => 'nullable|string|max:100'
-    ];
+    ];  
 
-    
+    public function role()
+    {
+            return $this->belongsTo('App\Models\Role');
+    }
 }

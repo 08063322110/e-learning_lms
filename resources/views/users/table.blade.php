@@ -4,16 +4,11 @@
         <tr>
             <th>Name</th>
         <th>Email</th>
-        <th>First Name</th>
-        <th>Last Name</th>
         <th>Gender</th>
-        <th>Date Of Birth</th>
         <th>Is Subscribed</th>
         <th>Email Verified At</th>
-        <th>Password</th>
         <th>View Count</th>
-        <th>Role Id</th>
-        <th>Remember Token</th>
+        <th>Role</th>
             <th colspan="3">Action</th>
         </tr>
         </thead>
@@ -22,16 +17,11 @@
             <tr>
                 <td>{{ $user->name }}</td>
             <td>{{ $user->email }}</td>
-            <td>{{ $user->first_name }}</td>
-            <td>{{ $user->last_name }}</td>
             <td>{{ $user->gender }}</td>
-            <td>{{ $user->date_of_birth }}</td>
             <td>{{ $user->is_subscribed }}</td>
             <td>{{ $user->email_verified_at }}</td>
-            <td>{{ $user->password }}</td>
             <td>{{ $user->view_count }}</td>
-            <td>{{ $user->role_id }}</td>
-            <td>{{ $user->remember_token }}</td>
+            <td>{{ $user->role['name']}}</td>
                 <td width="120">
                     {!! Form::open(['route' => ['users.destroy', $user->id], 'method' => 'delete']) !!}
                     <div class='btn-group'>

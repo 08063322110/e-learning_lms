@@ -2,28 +2,36 @@
 <div class="form-group col-xs-12">
     <h2>{!! $course->title !!}</h2>  
     <p>{{ $course->sub_title }}
-        <div class="text-muted">
-            @if ($course->subscriber_count>0)
-            | students : {{ number_format($course->subscriber_count) }}
-            @endif   
-            @if ($course->subscriber_count>0)
-            | views : {{ number_format($course->view_count) }}
-            @endif 
-        </div>
-    </p>
+            <div class="text-muted col-md-6">
+                @if ($course->subscriber_count > 0)
+                | students : {{ number_format($course->subscriber_count) }}
+                @endif   
+                @if ($course->view_count > 0)
+                | views : {{ number_format($course->view_count) }}
+                @endif 
+            </div>
 
+            <!-- Discount Price Field -->
+            <div class="col-md-6">
+                <span style="font-size: 36px;">{{ $course->discount_price }}</span>
+                <br>
+                <span style="font-size: 18px;
+                text-decoration: line-through">{{ $course->actual_price }}</span>
+                <br>
+                     <a href="#" class="btn btn-lg btn-success">Buy Course ${{ $course->actual_price }} </a>
+            </div>
+    </p>
 </div>
 
-@if (Auth::user()->role_id < 3  || Auth::user()->id == $course->user_id)
+@if (Auth::check() AND (Auth::user()->role_id < 3  || Auth::user()->id == $course->user_id))
     
-
 <!-- Creator Status Field -->
 <div class="col-md-5">
     {!! Form::label('creator_status', 'Creator Status:') !!}
     <p>
         
            @if($course->creator_status == 1)
-             Publish
+             Published
        {{-- @if(Auth::user()->role_id < 3) --}}
             
               {!! Form::open(['route' => ['courses.unpublishCourse', $course->id],'method' => 'post']) !!}   
@@ -84,11 +92,27 @@
 </div>
 @endif
 
+{{-- Updated at Field --}}
+<div class="col-md-5">
+    {!! Form::label('updated_at', 'Last Updated:') !!}
+    <p>{{ $course->updated_at ->format('h:i a - D d M Y')}}</p>
+</div>
+
+{{-- Created at Field --}}
+<div class="col-md-5">
+    {!! Form::label('created_at', 'Created At:') !!}
+    <p>{{ $course->created_at ->format('h:i a - D d M Y')}}</p>
+</div>
+
+
+
 <!-- User Id Field -->
 <div class="col-md-5">
     {!! Form::label('user_id', 'Author:') !!}
-    <p>{{ $course->user['name'] }}</p>
+    <p><a href="/users/{{ $course->user['id'] }}">{{ $course->user['name'] }}</a></p>
 </div>
+
+
 
 <!-- Category Id Field -->
 <div class="col-md-5">
@@ -96,17 +120,9 @@
     <p><a href="/categories/{!! $course->category['id'] !!}">{{ $course->category['name']}}</a></p>
 </div>
 
-{{-- Updated at Field --}}
-<div class="col-md-5">
-    {!! Form::label('updated_at', 'Last Updated:') !!}
-    <p>{{ $course->updated_at }}</p>
-</div>
 
-{{-- Created at Field --}}
-<div class="col-md-5">
-    {!! Form::label('created_at', 'Created At:') !!}
-    <p>{{ $course->created_at }}</p>
-</div>
+
+
 <!-- Description Field -->
 <div class="col-sm-12">
     {!! Form::label('description', 'Description:') !!}
@@ -162,16 +178,6 @@
     <p>{{ $course->requirements }}</p>
 </div>
 
-<!-- Discount Price Field -->
-<div class="col-sm-12">
-    {!! Form::label('discount_price', 'Discount Price:') !!}
-    <p>{{ $course->discount_price }}</p>
-</div>
 
-<!-- Actual Price Field -->
-<div class="col-sm-12">
-    {!! Form::label('actual_price', 'Actual Price:') !!}
-    <p>{{ $course->actual_price }}</p>
-</div>
 
 
