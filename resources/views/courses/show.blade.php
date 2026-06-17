@@ -22,6 +22,8 @@
             <div class="card-body">
                 <div class="row">
                     @include('courses.show_fields')
+                    <h3 class="col-md-12 text-center"> Subscribers </h3>
+                    @include('users.table-user')
                 </div>
             </div>
         </div>

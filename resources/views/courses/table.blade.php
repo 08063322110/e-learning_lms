@@ -23,7 +23,9 @@
                     </h4>
 
                     <br>
-               <div class="text-muted"> Author: {{ $course->user['name'] }} 
+    {{-- <div class="text-muted"> Author: {{ $course->user['name'] }} --This is what was here before. --}}
+
+    Author: {{ optional($course->user)->name ?? 'Unknown Author' }} 
             @if ($course->subscriber_count>0)
             | students : {{ number_format($course->subscriber_count) }}
             @endif   

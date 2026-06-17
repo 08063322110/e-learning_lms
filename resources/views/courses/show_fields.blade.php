@@ -37,8 +37,7 @@
               {!! Form::open(['route' => ['courses.unpublishCourse', $course->id],'method' => 'post']) !!}   
                   <input type="hidden" name="course_id" value="{{$course->id}}">
               {!! Form::button('<i class="far fa-trash-alt"></i> Click to Unpublish', ['type' => 'submit','class' => 'btn btn-danger btn-xs',
-                                'onclick' => "return confirm('Are you sure you want to Unpublish?')"
-                            ]
+                                'onclick' => "return confirm('Are you sure you want to Unpublish?')"]
                     ) !!}
               {!! Form::close() !!}
              {{-- @endif --}}
@@ -104,24 +103,17 @@
     <p>{{ $course->created_at ->format('h:i a - D d M Y')}}</p>
 </div>
 
-
-
 <!-- User Id Field -->
 <div class="col-md-5">
     {!! Form::label('user_id', 'Author:') !!}
     <p><a href="/users/{{ $course->user['id'] }}">{{ $course->user['name'] }}</a></p>
 </div>
 
-
-
 <!-- Category Id Field -->
 <div class="col-md-5">
     {!! Form::label('category_id', 'Category:') !!}
     <p><a href="/categories/{!! $course->category['id'] !!}">{{ $course->category['name']}}</a></p>
 </div>
-
-
-
 
 <!-- Description Field -->
 <div class="col-sm-12">
@@ -135,15 +127,11 @@
     <p>{{ $course->about_instructor }}</p>
 </div>
 
-
-
 <!-- Tags Field -->
 <div class="col-md-8">
     {!! Form::label('tags', 'Tags:') !!}
     <p>{{ $course->tags }}</p>
 </div>
-
-
 
 <!-- Promo Video Url Field -->
 {{-- <div class="col-sm-12">
@@ -157,8 +145,6 @@
     <p>{{ $course->playlist_url }}</p>
 </div> --}}
 
-
-
 <!-- What Will Students Learn Field -->
 <div class="col-md-8">
     {!! Form::label('what_will_students_learn', 'What Will Students Learn:') !!}
@@ -166,7 +152,6 @@
 </div>
 
  <!-- Target Students Field -->
-
 <div class="col-md-8">
     {!! Form::label('target_students', 'Target Students:') !!}
     <p>{{ $course->target_students }}</p>
@@ -177,7 +162,3 @@
     {!! Form::label('requirements', 'Requirements:') !!}
     <p>{{ $course->requirements }}</p>
 </div>
-
-
-
-
