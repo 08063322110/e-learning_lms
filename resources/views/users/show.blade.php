@@ -22,6 +22,10 @@
             <div class="card-body">
                 <div class="row">
                     @include('users.show_fields')
+                    {{-- Courses --}}
+                    <h3 class="text-center col-md-12">My Courses</h3>
+                    @include('courses.table')
+
                 </div>
             </div>
         </div>

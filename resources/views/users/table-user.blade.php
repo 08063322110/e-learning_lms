@@ -1,19 +1,16 @@
 <div class="table-responsive">
     <table class="table" id="users-table">
+       
         <thead>
         <tr>
-            <th>Name</th>
+        <th>Name</th>
         <th>Email</th>
         <th>Gender</th>
-        <th>Is Subscribed</th>
-        <th>Email Verified At</th>
-        <th>View Count</th>
-        <th>Role</th>
-            <th colspan="3">Action</th>
-        </tr>
+        <th>Amount</th>
         </thead>
+
         <tbody>
-        @foreach($users as $user)
+        @foreach($course->users as $user)
             <tr>
             <td>{{ $user->name }}</td>
             
@@ -24,10 +21,8 @@
             </td>
 
             <td>{{ $user->gender }}</td>
-            <td>{{ $user->is_subscribed }}</td>
-            <td>{{ $user->email_verified_at }}</td>
-            <td>{{ $user->view_count }}</td>
-            <td>{{ $user->role['name']}}</td>
+            <td>$ {{ $user->pivot->paid_amount }}</td>
+     
                 <td width="120">
                     {!! Form::open(['route' => ['users.destroy', $user->id], 'method' => 'delete']) !!}
                     <div class='btn-group'>
