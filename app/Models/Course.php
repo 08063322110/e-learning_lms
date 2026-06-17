@@ -130,4 +130,18 @@ class Course extends Model
      public function user(){
     return $this->belongsTo('App\Models\User');
     }
+
+   public function users()
+    {
+        return $this->belongsToMany('App\Models\User')
+        ->withPivot('paid_amount')
+        ->withPivot('paid_amount')
+        ->withPivot('paid_date')
+        ->withPivot('expiry_date')
+        ->withPivot('plan')
+        ->withPivot('created_at')
+        ->withPivot('user_account_id')
+        ->withPivot('user_account_id')
+        ;
+    }
 }
