@@ -33,14 +33,14 @@
 
 {{-- Moderator --}}
 @if (Auth::user()->role_id < 4)
-    
+{{--     
 <li class="nav-item">
     <a href="{{ route('courses.index') }}"
        class="nav-link {{ Request::is('courses*') ? 'active' : '' }}">
         <i class="nav-icon fas fa-book"></i>
         <p>Course Categories</p>
     </a>
-</li>
+</li> --}}
 
 @endif
 
