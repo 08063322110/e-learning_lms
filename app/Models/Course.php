@@ -144,4 +144,9 @@ class Course extends Model
         ->withPivot('user_account_id')
         ;
     }
+
+       public function comments()
+    {
+        return $this->hasMany('App\Models\Comment');
+    }
 }

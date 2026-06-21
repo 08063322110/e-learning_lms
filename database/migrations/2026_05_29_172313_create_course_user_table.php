@@ -16,10 +16,11 @@ class CreateCourseUserTable extends Migration
        Schema::create('course_user', function (Blueprint $table) {
             $table->increments('id');
             $table->integer('user_id');
-            $table->integer('course_id');
-            $table->integer('user_account_id');
-            $table->dateTime('paid_date');
-            $table->dateTime('expiry_date');
+            $table->integer('course_id')->nullable();
+            $table->integer('category_id')->nullable();
+            $table->integer('user_account_id')->nullable();
+            $table->dateTime('paid_date')->nullable();
+            $table->dateTime('expiry_date')->nullable();
             $table->string('plan')->nullable(); //monthly, quarterly, yearly, lifetime
             $table->double('paid_amount')->nullable();
             $table->tinyInteger('status')->default(0); // 0 : off, 1 :on

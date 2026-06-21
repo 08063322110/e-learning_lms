@@ -128,7 +128,6 @@ $course = $this->courseRepository->create($input);
 
             return redirect(route('courses.index'));
         }
-
         return view('courses.show')->with('course', $course);
     }
 

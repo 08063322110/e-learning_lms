@@ -2,15 +2,11 @@
     <table class="table" id="courses-table">
         <thead >
             <tr >
-                {{-- <th>Photo</th> --}}
-                {{-- <th>Courses</th> --}}
-                {{-- <th>Price</th> --}}
                 <th class="text-right" colspan="120">Action</th>
             </tr>
         </thead>
 
         <tbody>
-
         @foreach($courses as $course)
             <tr>
                 <td>{{ $course->photo }}</td>
@@ -23,7 +19,6 @@
                     </h4>
 
                     <br>
-    {{-- <div class="text-muted"> Author: {{ $course->user['name'] }} --This is what was here before. --}}
 
     Author: {{ optional($course->user)->name ?? 'Unknown Author' }} 
             @if ($course->subscriber_count>0)
@@ -33,24 +28,23 @@
             | views : {{ number_format($course->view_count) }}
             @endif 
             </div>
-
-                
-                {!!$course->sub_title!!}
-                    
+          
+                {!!$course->sub_title!!}   
                 </td>
 
                 <td>
                     <h3 style="margin-bottom: -10px;">
                         ${{ $course->discount_price }}
                     </h3>
-
                     <del style="text-decoration: line-through; padding-left: 10px">
                         ${{ $course->actual_price }}
                     </del>
                 </td>
 
                 <td width="120">
-                 @if(Auth::user()->role_id < 3 || $course->user_id == Auth::user()->id)
+
+                  @if(Auth::check() AND (Auth::user()->role_id < 3
+                 || $course->user_id == Auth::user()->id))
 
                     {!! Form::open([
                         'route' => ['courses.destroy', $course->id],
@@ -82,7 +76,6 @@
                     @endif
                 </td>
             </tr>
-
         @endforeach
 
         </tbody>
