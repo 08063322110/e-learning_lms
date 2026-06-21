@@ -10,7 +10,7 @@
         </tr>
         </thead>
         <tbody>
-        @foreach($comments as $comment)
+        @foreach($course->comments as $comment)
             <tr>
                 <td>{{ $comment->user_id }}</td>
             <td>{{ $comment->course_id }}</td>

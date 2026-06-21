@@ -57,5 +57,8 @@ class Comment extends Model
         'body' => 'required|string'
     ];
 
-    
+     public function course()
+     {
+    return $this->belongsTo('App\Models\Course');
+    }
 }
