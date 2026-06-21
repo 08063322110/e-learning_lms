@@ -11,7 +11,7 @@ use Flash;
 use Auth;
 use Response;
 use Illuminate\Support\Facades\DB;
-
+use App\Models\Course;
 
 class UserController extends AppBaseController
 {
@@ -82,9 +82,16 @@ class UserController extends AppBaseController
 
             return redirect(route('users.index'));
         }
+
+        //Courses this user has created..
+
+        $courses = Course::where('user_id', $id)->get();
+
         DB::table('users')->where('id', $id)->increment('view_count');
 
-        return view('users.show')->with('user', $user);
+        return view('users.show')
+        ->with('courses', $courses)
+        ->with('user', $user);
     }
 
     /**
