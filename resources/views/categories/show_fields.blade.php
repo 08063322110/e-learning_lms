@@ -1,14 +1,14 @@
-<!-- Name Field -->
+
+<!-- View Count Field -->
+<div class="col-sm-12 small text-muted text-right">
+    {!! Form::label('view_count', 'Page View Count:') !!} {{ $category->view_count }}
+</div>
+
+<h1 class="mt-0">{{$category->name}} </h1>
 
 <!-- Description Field -->
 <div class="col-sm-12">
     <p>{{ $category->description }}</p>
-</div>
-
-<!-- View Count Field -->
-<div class="col-sm-12 small text-muted">
-    {!! Form::label('view_count', 'View Count:') !!}
-    <p>{{ $category->view_count }}</p>
 </div>
 
 {{-- Created at field --}}
