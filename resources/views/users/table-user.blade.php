@@ -24,6 +24,8 @@
             <td>$ {{ $user->pivot->paid_amount }}</td>
      
                 <td width="120">
+                            @if(Auth::check() AND Auth::user()->role_id < 3) 
+
                     {!! Form::open(['route' => ['users.destroy', $user->id], 'method' => 'delete']) !!}
                     <div class='btn-group'>
                         <a href="{{ route('users.show', [$user->id]) }}"
@@ -37,6 +39,7 @@
                         {!! Form::button('<i class="far fa-trash-alt"></i>', ['type' => 'submit', 'class' => 'btn btn-danger btn-xs', 'onclick' => "return confirm('Are you sure?')"]) !!}
                     </div>
                     {!! Form::close() !!}
+                    @endif
                 </td>
             </tr>
         @endforeach

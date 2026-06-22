@@ -1,38 +1,35 @@
-<div class="table-responsive">
-    <table class="table" id="comments-table">
-        <thead>
-        <tr>
-            <th>User Id</th>
-        <th>Course Id</th>
-        <th>Category Id</th>
-        <th>Body</th>
-            <th colspan="3">Action</th>
-        </tr>
-        </thead>
-        <tbody>
-        @foreach($course->comments as $comment)
-            <tr>
-                <td>{{ $comment->user_id }}</td>
-            <td>{{ $comment->course_id }}</td>
-            <td>{{ $comment->category_id }}</td>
-            <td>{{ $comment->body }}</td>
-                <td width="120">
-                    {!! Form::open(['route' => ['comments.destroy', $comment->id], 'method' => 'delete']) !!}
-                    <div class='btn-group'>
-                        <a href="{{ route('comments.show', [$comment->id]) }}"
-                           class='btn btn-default btn-xs'>
-                            <i class="far fa-eye"></i>
-                        </a>
-                        <a href="{{ route('comments.edit', [$comment->id]) }}"
-                           class='btn btn-default btn-xs'>
-                            <i class="far fa-edit"></i>
-                        </a>
-                        {!! Form::button('<i class="far fa-trash-alt"></i>', ['type' => 'submit', 'class' => 'btn btn-danger btn-xs', 'onclick' => "return confirm('Are you sure?')"]) !!}
-                    </div>
-                    {!! Form::close() !!}
-                </td>
-            </tr>
-        @endforeach
-        </tbody>
-    </table>
-</div>
+@foreach($course->comments as $comment)
+<tr>
+    <td>
+        <div>
+            <a href="/users/{{$comment->user->id}}" class="text-bold">
+                {{$comment->user->name}} -         
+            </a>
+
+            <span class="text-muted">
+                {{$comment->created_at->format('h:i a - D d M Y')}}
+            </span>
+        </div>
+
+        {{ $comment->body }}
+    </td>
+
+    <td width="120">
+        @if(Auth::check() && (Auth::user()->id == $comment->user_id || Auth::user()->role_id < 3))
+            {!! Form::open(['route' => ['comments.destroy', $comment->id], 'method' => 'delete']) !!}
+            <div class='btn-group'>
+                <a href="{{ route('comments.edit', [$comment->id]) }}"
+                   class='btn btn-default btn-xs'>
+                    <i class="far fa-edit"></i>
+                </a>
+                {!! Form::button('<i class="far fa-trash-alt"></i>', [
+                    'type' => 'submit',
+                    'class' => 'btn btn-danger btn-xs',
+                    'onclick' => "return confirm('Are you sure?')"
+                ]) !!}
+            </div>
+            {!! Form::close() !!}
+        @endif
+    </td>
+</tr>
+@endforeach

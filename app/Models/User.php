@@ -94,8 +94,13 @@ class User extends Model
             return $this->belongsTo('App\Models\Role');
     }
 
-       public function courses()
+      public function courses()
     {
         return $this->belongsToMany('App\Models\Course');
+    }
+
+       public function comments()
+    {
+        return $this->hasMany('App\Models\Comment');
     }
 }
