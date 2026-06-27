@@ -8,6 +8,7 @@ use App\Repositories\CommentRepository;
 use App\Http\Controllers\AppBaseController;
 use Illuminate\Http\Request;
 use Flash;
+use Auth;
 use Response;
 
 class CommentController extends AppBaseController
@@ -54,13 +55,13 @@ class CommentController extends AppBaseController
      */
     public function store(CreateCommentRequest $request)
     {
-        $input = $request->all();
-
+        $input = $request->all();           
+        $input['user_id'] = Auth::user()->id;
         $comment = $this->commentRepository->create($input);
 
-        Flash::success('Comment saved successfully.');
+        Flash::success('Comment Added Successfully.');
 
-        return redirect(route('comments.index'));
+        return redirect()->back();
     }
 
     /**
@@ -77,7 +78,7 @@ class CommentController extends AppBaseController
         if (empty($comment)) {
             Flash::error('Comment not found');
 
-            return redirect(route('comments.index'));
+            return redirect()->back();
         }
 
         return view('comments.show')->with('comment', $comment);
@@ -97,7 +98,7 @@ class CommentController extends AppBaseController
         if (empty($comment)) {
             Flash::error('Comment not found');
 
-            return redirect(route('comments.index'));
+            return redirect()->back();
         }
 
         return view('comments.edit')->with('comment', $comment);
@@ -118,14 +119,16 @@ class CommentController extends AppBaseController
         if (empty($comment)) {
             Flash::error('Comment not found');
 
-            return redirect(route('comments.index'));
+            return redirect()->back();
         }
 
         $comment = $this->commentRepository->update($request->all(), $id);
 
         Flash::success('Comment updated successfully.');
 
-        return redirect(route('comments.index'));
+        // return redirect()->route('courses.show', ['id'=> $comment->course_id]);
+        // return redirect()->route('courses.show', $request->course_id);
+        return redirect()->route('courses.show', $comment->course_id);
     }
 
     /**

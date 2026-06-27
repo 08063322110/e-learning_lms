@@ -18,18 +18,15 @@
     </section>
 
     <div class="content px-3">
-
         @include('flash::message')
-
         <div class="clearfix"></div>
 
         <div class="card">
             <div class="card-body p-0">
-                @include('comments.table')
+                @include('comments.table-admin')
 
                 <div class="card-footer clearfix">
-                    <div class="float-right">
-                        
+                    <div class="float-right">    
                     </div>
                 </div>
             </div>

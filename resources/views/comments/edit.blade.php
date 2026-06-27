@@ -5,7 +5,7 @@
         <div class="container-fluid">
             <div class="row mb-2">
                 <div class="col-sm-12">
-                    <h1>Edit Comment</h1>
+                    <h1>Comment</h1>
                 </div>
             </div>
         </div>
@@ -23,11 +23,6 @@
                 <div class="row">
                     @include('comments.fields')
                 </div>
-            </div>
-
-            <div class="card-footer">
-                {!! Form::submit('Save', ['class' => 'btn btn-primary']) !!}
-                <a href="{{ route('comments.index') }}" class="btn btn-default">Cancel</a>
             </div>
 
             {!! Form::close() !!}

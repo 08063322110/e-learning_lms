@@ -13,12 +13,12 @@
 
             <!-- Discount Price Field -->
             <div class="col-md-6">
-                <span style="font-size: 36px;">{{ $course->discount_price }}</span>
+                <span style="font-size: 36px;">${{ $course->discount_price }}</span>
                 <br>
                 <span style="font-size: 18px;
-                text-decoration: line-through">{{ $course->actual_price }}</span>
+                text-decoration: line-through">${{ $course->actual_price }}</span>
                 <br>
-                     <a href="#" class="btn btn-lg btn-success">Buy Course ${{ $course->actual_price }} </a>
+                     <a href="#" class="btn btn-lg btn-success">Buy Course ${{ $course->discount_price }} </a>
             </div>
     </p>
 </div>

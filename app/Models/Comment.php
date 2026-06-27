@@ -51,7 +51,7 @@ class Comment extends Model
      * @var array
      */
     public static $rules = [
-        'user_id' => 'required|integer',
+        'user_id' => 'nullable|integer',
         'course_id' => 'nullable|integer',
         'category_id' => 'nullable|integer',
         'body' => 'required|string'
