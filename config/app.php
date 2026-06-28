@@ -176,6 +176,8 @@ return [
        InfyOm\Generator\InfyOmGeneratorServiceProvider::class,
         Collective\Html\HtmlServiceProvider::class,
         Laracasts\Flash\FlashServiceProvider::class,
+        Unicodeveloper\Paystack\PaystackServiceProvider::class,
+
 
     ],
 
@@ -228,6 +230,7 @@ return [
         'Form' => Collective\Html\FormFacade::class,
         'Html' => Collective\Html\HtmlFacade::class,
         'Flash' => Laracasts\Flash\Flash::class,
+        'Paystack' => Unicodeveloper\Paystack\Facades\Paystack::class,
 
     ],
 

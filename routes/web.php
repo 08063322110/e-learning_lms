@@ -49,3 +49,8 @@ Route::resource('views', 'ViewController');
 Route::resource('roles', 'RoleController');
 
 Route::resource('coupons', 'CouponController');
+
+// Laravel 5.1.17 and above
+Route::post('/pay', 'PaymentController@redirectToGateway')->name('pay');
+
+Route::post('/payment/callback', 'PaymentController@handleGatewayCallback')->name('paymentCallback');
