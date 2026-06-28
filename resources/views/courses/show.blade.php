@@ -4,7 +4,7 @@
     <section class="content-header">
         <div class="container-fluid">
             <div class="row mb-2">
-                <div class="col-sm-6">
+                <div class="col-md-6">
                     <h1>Course Details</h1>
                 </div>
                 <div class="col-sm-6">
@@ -24,20 +24,20 @@
                     @include('courses.show_fields')
 
 
-<ul class="nav nav-tabs col-md-8 " id="myTab" role="tablist">
-  <li class="nav-item">
-    <a class="nav-link active text-bold" id="home-tab" data-toggle="tab" href="#home" role="tab"
-     aria-controls="home" aria-selected="true">Comments</a>
-  </li>
+                    <ul class="nav nav-tabs col-md-4 " id="myTab" role="tablist">
+                    <li class="nav-item">
+                        <a class="nav-link active text-bold" id="home-tab" data-toggle="tab" href="#home" role="tab"
+                        aria-controls="home" aria-selected="true">Comments</a>
+                    </li>
 
-       @if(Auth::check() AND (Auth::user()->role_id < 3 || Auth::user()->id == $course->user_id))
-  <li class="nav-item">
-    <a class="nav-link text-bold" id="profile-tab" data-toggle="tab" href="#profile" role="tab" 
-    aria-controls="profile" aria-selected="false">Subscribers</a>
-  </li>
-       @endif 
-  
-</ul>
+                        @if(Auth::check() AND (Auth::user()->role_id < 3 || Auth::user()->id == $course->user_id))
+                    <li class="nav-item">
+                        <a class="nav-link text-bold" id="profile-tab" data-toggle="tab" href="#profile" role="tab" 
+                        aria-controls="profile" aria-selected="false">Subscribers</a>
+                    </li>
+                        @endif 
+                    
+                    </ul>
     <div class="tab-content" id="myTabContent">
     <div class="tab-pane fade show active" id="home" role="tabpanel" aria-labelledby="home-tab">
                                  @include('comments.table')
