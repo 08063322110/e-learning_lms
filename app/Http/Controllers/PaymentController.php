@@ -9,7 +9,7 @@ use App\Http\Controllers\AppBaseController;
 use Illuminate\Http\Request;
 use Flash;
 use Response;
-use Paystack;
+use App\Models\Payment;
 
 class PaymentController extends AppBaseController
 {
@@ -21,6 +21,51 @@ class PaymentController extends AppBaseController
         $this->paymentRepository = $paymentRepo;
     }
 
+    public function verify(Request $request)
+{
+    $reference = $request->reference;
+    $referrer = $request->referrer;
+
+    $curl = curl_init();
+    curl_setopt_array($curl, array(
+        CURLOPT_URL => "https://api.paystack.co/transaction/verify/" . rawurlencode($reference),
+        CURLOPT_RETURNTRANSFER => true,
+        CURLOPT_HTTPHEADER => [
+            "Authorization: Bearer " . config('paystack.secretKey'),
+            "Cache-Control: no-cache",
+        ],
+        CURLOPT_SSL_VERIFYPEER => false, // WAMP fix
+    ));
+
+    $response = curl_exec($curl);
+    curl_close($curl);
+
+    $result = json_decode($response);
+
+    if ($result && $result->status && $result->data->status == 'success') {
+        $user = auth()->user();
+        $courseId = basename($referrer);
+
+        // 1. Save payment
+        Payment::updateOrCreate(
+            ['reference' => $reference],
+            [
+                'user_id' => $user->id,
+                'course_id' => $courseId,
+                'amount' => $result->data->amount / 100,
+                'status' => 'success',
+                'gateway_response' => $response
+            ]
+        );
+
+        // 2. Enroll user
+        $user->courses()->syncWithoutDetaching([$courseId]);
+
+        return redirect('/courses/'.$courseId)->with('success', 'Payment successful and you are enrolled!');
+    }
+
+    return redirect('/')->with('error', 'Payment verification failed');
+}
 
 public function redirectToGateway()
     {
