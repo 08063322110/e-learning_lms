@@ -1,23 +1,25 @@
+<h2 class="col-md-8 text-center">Course Contents</h2>
+<div class="col-md-10">
 <div class="table-responsive">
     <table class="table" id="items-table">
         <thead>
         <tr>
-            <th>User Id</th>
-        <th>Course Id</th>
-        <th>View Count</th>
-        <th>Url</th>
+        {{-- <th>Url</th> --}}
         <th>Description</th>
-            <th colspan="3">Action</th>
+        <th>Views</th>
+        <th colspan="3">Action</th>
         </tr>
         </thead>
         <tbody>
-        @foreach($items as $item)
+        @foreach($course->items as $item)
             <tr>
-                <td>{{ $item->user_id }}</td>
-            <td>{{ $item->course_id }}</td>
+            {{-- <td>{{ $item->url }}</td> --}}
+            <td>
+            <h3>{{ $item->title }}</h3>
+                {{ $item->description }}</td>
             <td>{{ $item->view_count }}</td>
-            <td>{{ $item->url }}</td>
-            <td>{{ $item->description }}</td>
+
+            
                 <td width="120">
                     {!! Form::open(['route' => ['items.destroy', $item->id], 'method' => 'delete']) !!}
                     <div class='btn-group'>
@@ -37,4 +39,5 @@
         @endforeach
         </tbody>
     </table>
+</div>
 </div>
