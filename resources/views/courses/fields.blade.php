@@ -9,11 +9,19 @@
 </div>
 @endif
 
+
 <!-- Title Field -->
 <div class="form-group col-sm-6">
     {!! Form::label('title', 'Title:') !!}
     {!! Form::text('title', null, ['class' => 'form-control','maxlength' => 191]) !!}
 </div>
+
+<!-- Sub Title Field -->
+<div class="form-group col-sm-6">
+    {!! Form::label('sub_title', 'Sub Title:') !!}
+    {!! Form::text('sub_title', null, ['class' => 'form-control','maxlength' => 191]) !!}
+</div>
+
 
 <div class="form-group col-sm-6">
   <label for="category_id">Category</label>
