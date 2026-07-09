@@ -19,6 +19,7 @@ class CreateItemsTable extends Migration
             $table->integer('course_id');
             $table->integer('view_count')->default(0);            
             $table->string('url')->nullable();
+            $table->string('title')->nullable();
             $table->longText('description')->nullable();
             $table->softDeletes();
             $table->timestamps();

@@ -30,6 +30,7 @@ use Illuminate\Database\Eloquent\SoftDeletes;
  * @property integer $view_count
  * @property integer $subscriber_count
  */
+
 class Course extends Model
 {
     use SoftDeletes;
@@ -127,6 +128,7 @@ class Course extends Model
     public function category(){
     return $this->belongsTo('App\Models\Category');
     }
+
      public function user(){
     return $this->belongsTo('App\Models\User');
     }
@@ -148,5 +150,11 @@ class Course extends Model
        public function comments()
     {
         return $this->hasMany('App\Models\Comment');
+
+    } 
+    
+    public function items()
+    {
+        return $this->hasMany('App\Models\Item');
     }
 }

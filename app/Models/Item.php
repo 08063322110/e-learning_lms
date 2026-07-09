@@ -30,7 +30,8 @@ class Item extends Model
         'user_id',
         'course_id',
         'view_count',
-        'url',
+        'url',      
+        'title',
         'description'
     ];
 
@@ -45,6 +46,7 @@ class Item extends Model
         'course_id' => 'integer',
         'view_count' => 'integer',
         'url' => 'string',
+        'title' => 'string',
         'description' => 'string'
     ];
 
@@ -61,5 +63,7 @@ class Item extends Model
         'description' => 'nullable|string'
     ];
 
-    
+    public function course(){
+    return $this->belongsTo('App\Models\Course');
+    }
 }
