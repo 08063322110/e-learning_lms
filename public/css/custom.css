@@ -1,0 +1,7 @@
+.nav-pills > li:not(:last-child) {
+    margin-right: 15px;
+}
+
+.nav-pills > li > a {
+    color: black;
+}

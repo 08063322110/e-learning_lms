@@ -20,9 +20,19 @@
     <div class="content px-3">
         <div class="card">
             <div class="card-body">
-                <div class="row" style="padding-left: 20px">
-                    @include('courses.show_fields')
 
+                 @include('courses.menu')
+                <div class="row" style="padding-left: 20px">
+
+                    @include('courses.header')
+                    {{-- @include('courses.show_fields') --}}
+
+
+                    @if(isset($contents) AND $contents == 'yes')
+                            @include('courses.contents')
+                    @elseif (isset($description) AND $description == 'yes')
+                            @include('courses.show_fields')
+                    @endif
 
                     <ul class="nav nav-tabs col-md-4 " id="myTab" role="tablist">
                     <li class="nav-item">
