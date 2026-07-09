@@ -29,6 +29,8 @@ Route::resource('comments', 'CommentController');
 
 // Courses
 Route::resource('courses', 'CourseController');
+Route::get('courses/contents/{course_id}', 'CourseController@contents')->name('courses.contents');
+
 Route::post('courses/disapprove', 'CourseController@disapprove')->name('courses.disapprove');
 Route::post('courses/approve', 'CourseController@approve')->name('courses.approve');
 
@@ -51,6 +53,6 @@ Route::resource('roles', 'RoleController');
 Route::resource('coupons', 'CouponController');
 
 // Laravel 5.1.17 and above
-Route::post('/pay', 'PaymentController@redirectToGateway')->name('pay');
-
-Route::post('/payment/callback', 'PaymentController@handleGatewayCallback')->name('paymentCallback');
+// Route::post('/pay', 'PaymentController@redirectToGateway')->name('pay');
+Route::get('/payment/callback', 'PaymentController@handleGatewayCallback')->name('paymentCallback');
+Route::post('/pay', 'PaymentController@redirectToGateway')->name('pay'); // keep this as POST

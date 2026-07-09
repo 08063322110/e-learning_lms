@@ -30,6 +30,16 @@ class CourseController extends AppBaseController
      *
      * @return Response
      */
+    public function contents ($course_id){
+        //Get the list of items that belongs to this Course.
+        $course = Course:: where('id', $course_id)->first();
+        //Pass it to the Course/Contents View.
+
+        $contents = 'yes';
+        return view('courses.show', compact('course', 'contents'));
+
+    }
+        
 
     public function approve (Request $request){
         Course::where('id', $request->course_id)
@@ -138,53 +148,29 @@ $course = $this->courseRepository->create($input);
      *
      * @return Response
      */
-    public function edit($id)
-    {
-        $course = $this->courseRepository->find($id);
+  public function edit($id)
+{
+    $course = $this->courseRepository->find($id);
 
-        if (empty($course)) {
-            Flash::error('Course not found');
-
-            return redirect(route('courses.index'));
-        }
-
-        return view('courses.edit')->with('course', $course);
-    }
-
-    /**
-     * Update the specified Course in storage.
-     *
-     * @param int $id
-     * @param UpdateCourseRequest $request
-     *
-     * @return Response
-     */
-    public function update($id, UpdateCourseRequest $request)
-    {
-        $course = $this->courseRepository->find($id);
-
-        if (empty($course)) {
-            Flash::error('Course not found');
-
-            return redirect(route('courses.index'));
-        }
-
-        $course = $this->courseRepository->update($request->all(), $id);
-
-        Flash::success('Course updated successfully.');
-
+    if (empty($course)) {
+        Flash::error('Course not found');
         return redirect(route('courses.index'));
     }
 
-    /**
-     * Remove the specified Course from storage.
-     *
-     * @param int $id
-     *
-     * @throws \Exception
-     *
-     * @return Response
-     */
+    return view('courses.edit')->with('course', $course); // MUST have this
+}
+public function update(Request $request, $id)
+{
+    $input = $request->all();
+    
+    // Don't overwrite photo if left empty
+    if (empty($input['photo'])) {
+        unset($input['photo']);
+    }
+
+    $course = $this->courseRepository->update($input, $id);
+}
+
     public function destroy($id)
     {
         $course = $this->courseRepository->find($id);
