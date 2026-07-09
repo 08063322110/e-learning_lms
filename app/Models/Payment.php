@@ -27,32 +27,34 @@ class Payment extends Model
 
 
 
-
-    public $fillable = [
-        'user_id',
-        'category_id',
-        'course_id',
-        'amount',
-        'status',
-        'mode_of_payment',
-        'payment_processor'
-    ];
-
+public $fillable = [
+    'reference',
+    'user_id',
+    'category_id',
+    'course_id',
+    'amount',
+    'status',
+    'gateway_response',
+    'mode_of_payment',
+    'payment_processor'
+];
     /**
      * The attributes that should be casted to native types.
      *
      * @var array
      */
     protected $casts = [
-        'id' => 'integer',
-        'user_id' => 'integer',
-        'category_id' => 'integer',
-        'course_id' => 'integer',
-        'amount' => 'float',
-        'status' => 'string',
-        'mode_of_payment' => 'string',
-        'payment_processor' => 'string'
-    ];
+    'id' => 'integer',
+    'reference' => 'string',
+    'user_id' => 'integer',
+    'category_id' => 'integer',
+    'course_id' => 'integer',
+    'amount' => 'float',
+    'status' => 'string',
+    'gateway_response' => 'string',
+    'mode_of_payment' => 'string',
+    'payment_processor' => 'string'
+];
 
     /**
      * Validation rules
