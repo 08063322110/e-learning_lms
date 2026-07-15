@@ -30,6 +30,8 @@ Route::resource('comments', 'CommentController');
 // Courses
 Route::resource('courses', 'CourseController');
 Route::get('courses/contents/{course_id}', 'CourseController@contents')->name('courses.contents');
+Route::get('courses/subscribers/{course_id}', 'CourseController@subscribers')->name('courses.subscribers');
+Route::get('courses/items/{course_id}/{item_id}', 'CourseController@items')->name('courses.items');
 
 Route::post('courses/disapprove', 'CourseController@disapprove')->name('courses.disapprove');
 Route::post('courses/approve', 'CourseController@approve')->name('courses.approve');
@@ -41,6 +43,7 @@ Route::post('courses/unpublishCourse', 'CourseController@unpublishCourse')->name
 Route::resource('courseUsers', 'CourseUserController');
 
 Route::resource('items', 'ItemController');
+Route::get('items/create/{course_id?}', 'ItemController@create')->name('items.create');
 
 Route::resource('payments', 'PaymentController');
 

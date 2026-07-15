@@ -1,40 +1,37 @@
 @extends('layouts.app')
 
 @section('content')
-    <section class="content-header">
-        <div class="container-fluid">
-            <div class="row mb-2">
-                <div class="col-md-6">
-                    <h1>Course Details</h1>
-                </div>
-                <div class="col-sm-6">
-                    <a class="btn btn-default float-right"
-                       href="{{ route('courses.index') }}">
-                        Back
-                    </a>
-                </div>
-            </div>
-        </div>
-    </section>
+   <section class="content-header">
+           
+   </section>
 
-    <div class="content px-3">
-        <div class="card">
-            <div class="card-body">
+    <div class="content">
 
+        <div class="clearfix"></div>
+        @include('flash::message')
+        <div class="clearfix"></div>
+
+        <div class="box box-primary">
+            <div class="box-body">
+
+                 @include('courses.header')
                  @include('courses.menu')
                 <div class="row" style="padding-left: 20px">
 
-                    @include('courses.header')
-                    {{-- @include('courses.show_fields') --}}
 
-
-                    @if(isset($contents) AND $contents == 'yes')
-                            @include('courses.contents')
+                    @if(isset($items) AND $items == 'yes')
+                            @include('courses.show-item')
+                    @elseif(isset($subscribers) AND $subscribers == 'yes')
+                            @include('courses.subscribers')
+                    @elseif (isset($contents) AND $contents == 'yes')
+                            @include('courses.contents') 
                     @elseif (isset($description) AND $description == 'yes')
-                            @include('courses.show_fields')
+                            @include('courses.show_fields')     
+                            <h2 class="col-md-12">Comments and Reviews</h2>    
+                            @include('comments.table')
                     @endif
 
-                    <ul class="nav nav-tabs col-md-4 " id="myTab" role="tablist">
+                    {{-- <ul class="nav nav-tabs col-md-4 " id="myTab" role="tablist">
                     <li class="nav-item">
                         <a class="nav-link active text-bold" id="home-tab" data-toggle="tab" href="#home" role="tab"
                         aria-controls="home" aria-selected="true">Comments</a>
@@ -66,5 +63,5 @@
                 </div>
             </div>
         </div>
-    </div>
+    </div> --}}
 @endsection

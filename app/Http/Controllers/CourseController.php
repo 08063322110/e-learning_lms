@@ -9,9 +9,11 @@ use App\Http\Controllers\AppBaseController;
 use Illuminate\Http\Request;
 use Flash;
 use Auth;
+use DB;
 use Response;
 use App\Models\Category;
 use App\Models\Course;
+use App\Models\Item;
 
 class CourseController extends AppBaseController
 {
@@ -30,14 +32,54 @@ class CourseController extends AppBaseController
      *
      * @return Response
      */
+
+
+    public function items ($course_id, $item_id){
+        //Get the list of items that belongs to this Course.
+        $course = $this->courseRepository->find($course_id);
+        //Pass it to the Course/Contents View.
+
+       if (empty($course)) {
+        Flash::error('Course not found');
+        return redirect()->back();
+       }
+       //Pass it to the course/contents view
+        $item = Item::where('id', $item_id)->first();
+        DB::table('items')->where('id', $item_id)->increment('view_count');
+
+            $items = 'yes';
+
+    return view('courses.show')
+    ->with('course', $course)
+    ->with('items', $items)
+    ->with('item', $item);
+    }
+
+    public function subscribers ($course_id){
+        //Get the list of items that belongs to this Course.
+        $course = $this->courseRepository->find($course_id);
+        //Pass it to the Course/Contents View.
+
+       if (empty($course)) {
+        Flash::error('Course not found');
+        return redirect()->back();
+       }
+       //Pass it to the course/contents view
+        $subscribers = $course->users;
+
+    return view('courses.subscribers')
+    ->with('course', $course)
+    ->with('subscribers', $subscribers);
+    }
+        
     public function contents ($course_id){
         //Get the list of items that belongs to this Course.
         $course = Course:: where('id', $course_id)->first();
         //Pass it to the Course/Contents View.
 
         $contents = 'yes';
+        // return view('courses.show', compact('course', 'contents'));
         return view('courses.show', compact('course', 'contents'));
-
     }
         
 
@@ -49,6 +91,8 @@ class CourseController extends AppBaseController
         Flash::success('Course Approved Successfully.');
         return redirect()->back();
     }
+
+
 
     public function disapprove(Request $request) {
         Course::where('id', $request->course_id)
@@ -70,7 +114,7 @@ class CourseController extends AppBaseController
     }
 
        public function unpublishCourse(Request $request) {
- Course::where('id', $request->course_id)
+    Course::where('id', $request->course_id)
         ->update([
             'creator_status'=>0
         ]);
@@ -138,7 +182,10 @@ $course = $this->courseRepository->create($input);
 
             return redirect(route('courses.index'));
         }
-        return view('courses.show')->with('course', $course);
+
+        return view('courses.show')
+        ->with('course', $course)
+        ->with('description', 'yes');
     }
 
     /**
