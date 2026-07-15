@@ -2,26 +2,17 @@
 
 @section('content')
     <section class="content-header">
-        <div class="container-fluid">
-            <div class="row mb-2">
-                <div class="col-sm-6">
-                    <h1>Item Details</h1>
-                </div>
-                <div class="col-sm-6">
-                    <a class="btn btn-default float-right"
-                       href="{{ route('items.index') }}">
-                        Back
-                    </a>
-                </div>
-            </div>
-        </div>
+       <h1>
+        Course
+       </h1>
     </section>
 
-    <div class="content px-3">
-        <div class="card">
+    <div class="content">
+        <div class="box box-primary">
             <div class="card-body">
-                <div class="row">
+                <div class="row" style="padding-left: 20px">
                     @include('items.show_fields')
+                    <a href="{{route('items.index')}} btn btn-default">Back</a>
                 </div>
             </div>
         </div>

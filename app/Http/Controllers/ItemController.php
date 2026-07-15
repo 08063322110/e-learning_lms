@@ -8,6 +8,7 @@ use App\Repositories\ItemRepository;
 use App\Http\Controllers\AppBaseController;
 use Illuminate\Http\Request;
 use Flash;
+use Auth;
 use Response;
 use Illuminate\Support\Facades\DB;
 
@@ -43,7 +44,7 @@ class ItemController extends AppBaseController
      */
     public function create()
     {
-        return view('items.create');
+        return view('items.create')->with('course_id', $course_id);
     }
 
     /**
@@ -56,12 +57,13 @@ class ItemController extends AppBaseController
     public function store(CreateItemRequest $request)
     {
         $input = $request->all();
+        $input['user_id'] = Auth::user()->id;
 
         $item = $this->itemRepository->create($input);
 
-        Flash::success('Item saved successfully.');
+        Flash::success('Item Created successfully.');
 
-        return redirect(route('items.index'));
+        return redirect(route('courses.contents', ['course_id' => $input['course_id'], 'contents' => 'yes' ]));
     }
 
     /**
@@ -78,7 +80,7 @@ class ItemController extends AppBaseController
         if (empty($item)) {
             Flash::error('Item not found');
 
-            return redirect(route('items.index'));
+            return redirect(route('courses.index'));
         }
         DB::table('items')->where('id', $id)->increment('view_count');
 
@@ -99,7 +101,7 @@ class ItemController extends AppBaseController
         if (empty($item)) {
             Flash::error('Item not found');
 
-            return redirect(route('items.index'));
+            return redirect(route('courses.index'));
         }
 
         return view('items.edit')->with('item', $item);
@@ -120,14 +122,14 @@ class ItemController extends AppBaseController
         if (empty($item)) {
             Flash::error('Item not found');
 
-            return redirect(route('items.index'));
+            return redirect(route('courses.index'));
         }
 
         $item = $this->itemRepository->update($request->all(), $id);
 
         Flash::success('Item updated successfully.');
 
-        return redirect(route('items.index'));
+        return redirect(route('courses.items', ['course_id' => $item->course_id, 'item_id'=>$item->id]));
     }
 
     /**
@@ -146,13 +148,13 @@ class ItemController extends AppBaseController
         if (empty($item)) {
             Flash::error('Item not found');
 
-            return redirect(route('items.index'));
+            return redirect(route('courses.index'));
         }
 
         $this->itemRepository->delete($id);
 
         Flash::success('Item deleted successfully.');
 
-        return redirect(route('items.index'));
+        return redirect(route('courses.contents', ['course_id' => $item->course_id, 'contents'=>'yes']));
     }
 }

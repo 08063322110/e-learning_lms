@@ -1,34 +1,18 @@
-<!-- User Id Field -->
-<div class="form-group col-sm-6">
-    {!! Form::label('user_id', 'User Id:') !!}
-    {!! Form::number('user_id', null, ['class' => 'form-control']) !!}
-</div>
+<input type="hidden" name="course_id" value="{{$course_id}}">
 
-<!-- Course Id Field -->
-<div class="form-group col-sm-6">
-    {!! Form::label('course_id', 'Course Id:') !!}
-    {!! Form::number('course_id', null, ['class' => 'form-control']) !!}
-</div>
-
-<!-- View Count Field -->
-<div class="form-group col-sm-6">
-    {!! Form::label('view_count', 'View Count:') !!}
-    {!! Form::number('view_count', null, ['class' => 'form-control']) !!}
-</div>
-
-<!-- Url Field -->
-<div class="form-group col-sm-6">
-    {!! Form::label('url', 'Url:') !!}
-    {!! Form::text('url', null, ['class' => 'form-control','maxlength' => 191,'maxlength' => 191]) !!}
-</div><!-- Url Field -->
-
+<!-- Title Field -->
 <div class="form-group col-sm-6">
     {!! Form::label('title', 'Title:') !!}
     {!! Form::text('title', null, ['class' => 'form-control','maxlength' => 191,'maxlength' => 191]) !!}
 </div>
 
 <!-- Description Field -->
-<div class="form-group col-sm-12 col-lg-12">
+<div class="form-group col-sm-6">
     {!! Form::label('description', 'Description:') !!}
-    {!! Form::textarea('description', null, ['class' => 'form-control']) !!}
+    {!! Form::text('description', null, ['class' => 'form-control','maxlength' => 191,'maxlength' => 191]) !!}
+</div>
+
+<!-- Submit Field -->
+<div class="form-group col-md-12">
+    {!! Form::submit('Save', ['class' => 'btn btn-primary']) !!}
 </div>
