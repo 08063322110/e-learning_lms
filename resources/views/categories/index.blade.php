@@ -7,12 +7,16 @@
                 <div class="col-sm-6">
                     <h1>Course Categories</h1>
                 </div>
-                <div class="col-sm-6">
-                    <a class="btn btn-primary float-right"
+
+             @if(Auth::check() AND Auth::user()->role_id < 3)
+                <h1> 
+                    <a class="btn btn-primary pull-right" style="margin-top: -10px; margin-bottom: 5px"
                        href="{{ route('categories.create') }}">
                         Add New
                     </a>
-                </div>
+                </h1>
+             @endif
+
             </div>
         </div>
     </section>
