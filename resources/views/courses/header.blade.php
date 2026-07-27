@@ -10,6 +10,7 @@
     {!! Form::label('') !!}
    <h6 <p class="text-muted "style="margin-top: -40px;" >{{ $course->sub_title }}</p></h6>
 </div>
+            @include('courses.menu')
 
 {{-- 3 COLUMNS ROW - EQUAL SPACING LEFT/RIGHT/BETWEEN --}}
 <div class="row mb-4 justify-content-between px-5 "style="margin-top: 40px;" " >
@@ -83,22 +84,33 @@
             </p>
         </div>
     </div>
-
+@if(empty($getSubscription))
 <div class="col-md-3">
     <h2 class="font-weight-bold">#{{ $course->discount_price }} <small class="text-muted"><s>#{{ $course->actual_price }}</s></small></h2>
     
-    @if(Auth::check())
     <form action="{{ route('pay') }}" method="POST">
         @csrf
-        <input type="hidden" name="email" value="{{ Auth::user()->email }}">
+        <div class="form-group">
+            <input 
+                type="email" 
+                name="email" 
+                class="form-control" 
+                placeholder="Enter valid email" 
+                value="{{ Auth::check() ? Auth::user()->email : old('email') }}"
+                required
+            >
+        </div>
+
         <input type="hidden" name="amount" value="{{ $course->discount_price * 100 }}">
         <input type="hidden" name="metadata" value='{"course_id": "{{ $course->id }}"}'>
         <input type="hidden" name="reference" value="course_{{ $course->id }}_{{ time() }}">
         <input type="hidden" name="currency" value="NGN">
-        <button class="btn btn-success btn-block">Pay Now</button>
+        
+        <button class="btn btn-success btn-block">
+            <i class="fa fa-plus-circle"></i> Pay Now!
+        </button>
     </form>
-    @else
-        <a href="{{ route('login') }}" class="btn btn-success btn-block">Login to Pay</a>
-    @endif
-    <p class="text-center small text-muted mt-2">24-hour Money-back Guarantee</p>
+    
+    <p class="text-center small text-muted mt-2">24-hour money-back guarantee.</p>
 </div>
+@endif

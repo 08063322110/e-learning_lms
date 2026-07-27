@@ -4,7 +4,7 @@
 <ul class="nav nav-pills text-bold">
   <li role="presentation" ><a href="{{ route('courses.show', ['course' => $course->id]) }}">Course Home</a></li>
   <li role="presentation"><a href="{{ route('courses.contents', ['course_id' => $course->id])}}">Contents</a></li>
-  <li role="presentation"><a href="#">Comments and Reviews</a></li>
+  {{-- <li role="presentation"><a href="#">Comments and Reviews</a></li> --}}
   {{-- <li role="presentation"><a href="{{ route('courses.contents', ['course_id' => $course->id])}}">Contents</a></li> --}}
 
 

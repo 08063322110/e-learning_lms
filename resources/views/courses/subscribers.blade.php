@@ -39,7 +39,8 @@
                 <td>{{ $subscriber->name }}</td>
                 <td>{{ $subscriber->email }}</td>
                 <td>{{ $subscriber->gender }}</td>
-                <td>${{ $subscriber->pivot->paid_amount }}</td>
+                {{-- <td>${{ $subscriber->pivot->paid_amount }}</td> --}}
+                <td>${{ number_format($subscriber->pivot->paid_amount ?? 0, 2) }}</td>
             </tr>
         @empty
             <tr>
