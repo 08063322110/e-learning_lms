@@ -104,7 +104,7 @@ class ItemController extends AppBaseController
             return redirect(route('courses.index'));
         }
 
-        return view('items.edit')->with('item', $item);
+        return view('items.edit')->with('item', $item)->with('course_id', $item-> course_id);
     }
 
     /**

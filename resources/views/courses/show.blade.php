@@ -1,67 +1,45 @@
 @extends('layouts.app')
 
 @section('content')
-   <section class="content-header">
-           
-   </section>
+<section class="content-header">
+</section>
 
-    <div class="content">
+<div class="content">
 
-        <div class="clearfix"></div>
-        @include('flash::message')
-        <div class="clearfix"></div>
+    <div class="clearfix"></div>
+    @include('flash::message')
+    <div class="clearfix"></div>
 
-        <div class="box box-primary">
-            <div class="box-body">
+    <div class="box box-primary">
+        <div class="box-body" style="padding:30px;">
 
-                 @include('courses.header')
-                 @include('courses.menu')
-                <div class="row" style="padding-left: 20px">
+            @include('courses.header')
+            {{-- @include('courses.menu') --}}
 
+            @if(isset($items) && $items == 'yes')
 
-                    @if(isset($items) AND $items == 'yes')
-                            @include('courses.show-item')
-                    @elseif(isset($subscribers) AND $subscribers == 'yes')
-                            @include('courses.subscribers')
-                    @elseif (isset($contents) AND $contents == 'yes')
-                            @include('courses.contents') 
-                    @elseif (isset($description) AND $description == 'yes')
-                            @include('courses.show_fields')     
-                            <h2 class="col-md-12">Comments and Reviews</h2>    
-                            @include('comments.table')
-                    @endif
+                @include('courses.show-item')
 
-                    {{-- <ul class="nav nav-tabs col-md-4 " id="myTab" role="tablist">
-                    <li class="nav-item">
-                        <a class="nav-link active text-bold" id="home-tab" data-toggle="tab" href="#home" role="tab"
-                        aria-controls="home" aria-selected="true">Comments</a>
-                    </li>
+            @elseif(isset($subscribers) && $subscribers == 'yes')
 
-                        @if(Auth::check() AND (Auth::user()->role_id < 3 || Auth::user()->id == $course->user_id))
-                    <li class="nav-item">
-                        <a class="nav-link text-bold" id="profile-tab" data-toggle="tab" href="#profile" role="tab" 
-                        aria-controls="profile" aria-selected="false">Subscribers</a>
-                    </li>
-                        @endif 
-                    
-                    </ul>
-    <div class="tab-content" id="myTabContent">
-    <div class="tab-pane fade show active" id="home" role="tabpanel" aria-labelledby="home-tab">
-                                 @include('comments.table')
+                @include('courses.subscribers')
 
-    </div>
-    
-        @if(Auth::check() AND (Auth::user()->role_id < 3 || Auth::user()->id == $course->user_id))
-        <div class="tab-pane fade" id="profile" role="tabpanel" aria-labelledby="profile-tab">
-                                <h3 class="col-md-12 text-center"> Subscribers </h3>
-                                @include('users.table-user')
+            @elseif(isset($contents) && $contents == 'yes')
+
+                @include('courses.contents')
+
+            @elseif(isset($description) && $description == 'yes')
+
+                @include('courses.show_fields')
+
+                <h2 class="text-center">Comments and Reviews</h2>
+
+                @include('comments.table')
+
+            @endif
+
         </div>
-        @endif
-
     </div>
 
-                </div>
-            </div>
-        </div>
-    </div> --}}
+</div>
 @endsection

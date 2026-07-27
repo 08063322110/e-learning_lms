@@ -1,5 +1,12 @@
 <input type="hidden" name="course_id" value="{{$course_id}}">
 
+
+<!-- Url Field -->
+<div class="form-group col-sm-6">
+    {!! Form::label('url', 'Url:') !!}
+    {!! Form::text('url', null, ['class' => 'form-control','maxlength' => 191,'maxlength' => 191]) !!}
+</div>
+
 <!-- Title Field -->
 <div class="form-group col-sm-6">
     {!! Form::label('title', 'Title:') !!}
