@@ -13,7 +13,9 @@ use DB;
 use Response;
 use App\Models\Category;
 use App\Models\Course;
-use App\Models\Item;
+use App\Models\CourseUser;
+ use App\Models\Item;
+
 
 class CourseController extends AppBaseController
 {
@@ -55,32 +57,32 @@ class CourseController extends AppBaseController
     ->with('item', $item);
     }
 
-    public function subscribers ($course_id){
-        //Get the list of items that belongs to this Course.
-        $course = $this->courseRepository->find($course_id);
-        //Pass it to the Course/Contents View.
+  public function subscribers ($course_id)
+{
+    $course = $this->courseRepository->find($course_id);
 
-       if (empty($course)) {
+    if (empty($course)) {
         Flash::error('Course not found');
         return redirect()->back();
-       }
-       //Pass it to the course/contents view
-        $subscribers = $course->users;
+    }
+
+    // Load users with pivot data
+    $subscribers = $course->users()->withPivot('paid_amount')->get();
 
     return view('courses.subscribers')
-    ->with('course', $course)
-    ->with('subscribers', $subscribers);
-    }
+        ->with('course', $course)
+        ->with('subscribers', $subscribers);
+}
         
-    public function contents ($course_id){
-        //Get the list of items that belongs to this Course.
-        $course = Course:: where('id', $course_id)->first();
-        //Pass it to the Course/Contents View.
+   public function contents($course_id)
+{
+    $course = Course::findOrFail($course_id);
+    
+    // This is the line that was missing
+    $items = Item::where('course_id', $course_id)->orderBy('id', 'asc')->get();
 
-        $contents = 'yes';
-        // return view('courses.show', compact('course', 'contents'));
-        return view('courses.show', compact('course', 'contents'));
-    }
+    return view('courses.contents', compact('course', 'items'));
+}
         
 
     public function approve (Request $request){
@@ -173,21 +175,22 @@ $course = $this->courseRepository->create($input);
      *
      * @return Response
      */
-    public function show($id)
-    {
-        $course = $this->courseRepository->find($id);
-
-        if (empty($course)) {
-            Flash::error('Course not found');
-
-            return redirect(route('courses.index'));
-        }
-
-        return view('courses.show')
-        ->with('course', $course)
-        ->with('description', 'yes');
+   
+public function show($id)
+{
+    $course = Course::with(['user', 'category'])->findOrFail($id);
+    
+    $getSubscription = null;
+    if(Auth::check()){
+        $getSubscription = CourseUser::where('user_id', Auth::id())
+                            ->where('course_id', $course->id)
+                            ->first();
     }
 
+    $description = 'yes'; // ADD THIS LINE
+    
+    return view('courses.show', compact('course', 'getSubscription', 'description'));
+}
     /**
      * Show the form for editing the specified Course.
      *
