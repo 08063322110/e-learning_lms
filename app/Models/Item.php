@@ -44,7 +44,7 @@ class Item extends Model
         'id' => 'integer',
         'user_id' => 'integer',
         'course_id' => 'integer',
-        'view_count' => 'integer',
+        'view_count' => 'nullable|integer',
         'url' => 'string',
         'title' => 'string',
         'description' => 'string'
@@ -58,7 +58,7 @@ class Item extends Model
     public static $rules = [
         'user_id' => 'nullable|integer',
         'course_id' => 'required|integer',
-        'view_count' => 'required|integer',
+        'view_count' => 'nullable|integer',
         'url' => 'nullable|string|max:191',
         'description' => 'nullable|string'
     ];

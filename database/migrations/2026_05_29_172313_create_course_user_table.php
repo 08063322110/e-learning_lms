@@ -24,6 +24,7 @@ class CreateCourseUserTable extends Migration
             $table->string('plan')->nullable(); //monthly, quarterly, yearly, lifetime
             $table->double('paid_amount')->nullable();
             $table->tinyInteger('status')->default(0); // 0 : off, 1 :on
+            $table->decimal('paid_amount', 10, 2)->default(0); // <-- add this
             $table->softDeletes();
             $table->timestamps();
         });
