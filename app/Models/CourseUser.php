@@ -20,8 +20,9 @@ use Illuminate\Database\Eloquent\Model as Model;
  */
 class CourseUser extends Model
 {
+    protected $table = 'course_users'; // ADD ONLY THIS LINE
 
-    public $table = 'course_user';
+    // public $table = 'course_user';
     
     const CREATED_AT = 'created_at';
     const UPDATED_AT = 'updated_at';

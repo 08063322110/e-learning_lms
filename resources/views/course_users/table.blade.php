@@ -1,57 +1,61 @@
-<div class="table-responsive">
-    <table class="table" id="courseUsers-table">
-        <thead>
-        <tr>
-        <th>Course</th>
-        <th>Paid Date</th>
-        <th>Expiry Date</th>
-        <th>Plan</th>
-        <th>Paid Amount</th>
-        <th>Status</th>
-            <th colspan="3"></th>
-        </tr>
-        </thead>
-        <tbody>
-        @foreach($courseUsers as $courseUser)
-            <tr>
-            <td><a class="text-bold" href="{{route('courses.contents', ['course_id' =>$courseUser->course_id, 'contents'=> 'yes']) }}">
-                </a>
-            </td>
-            <td>
-                @if ($courseUser->paid_date != null)
-                    {{ $courseUser->paid_date -> format('D d M Y') }}
-                @endif
-            </td>
-            <td> 
-                @if ($courseUser->expiry_date != null)
-                    {{ $courseUser->expiry_date -> format('D d M Y') }}
-                @endif
-            </td>
-            <td>{{ $courseUser->plan }}</td>
-            <td>#{{ number_format ($courseUser->paid_amount) }}</td>
-            <td>
-            @if ($courseUser->status == 1)
-                active
-            @else
-                inactive
-            @endif
-            </td>
-    <td>
-        @if(Auth::check() AND Auth::user()->role_id < 3)
-    
-            {!! Form::open(['route' => ['courseUsers.destroy', $courseUser->id], 'method' => 'delete']) !!}
-                    <div class='btn-group'>
-                       
-                        <a href="{{ route('courseUsers.edit', [$courseUser->id]) }}" class='btn btn-default btn-xs'>
-                            <i class="far fa-edit"></i>
-                        </a>
-                        {!! Form::button('<i class="glyphicon glyphicon-trash"></i>', ['type' => 'submit', 'class' => 'btn btn-danger btn-xs', 'onclick' => "return confirm('Are you sure?')"]) !!}
-                    </div>
-                    {!! Form::close() !!}
-        @endif
-    </td>
-  </tr>
-        @endforeach
-        </tbody>
-    </table>
+<div class="box box-primary">
+    <div class="box-body table-responsive">
+        <table class="table table-bordered table-striped table-hover">
+            <thead>
+                <tr>
+                    <th>Name</th>
+                    <th>Email</th>
+                    <th>Course</th>
+                    <th>Paid Date</th>
+                    <th>Expiry Date</th>
+                    <th>Plan</th>
+                    <th>Paid Amount</th>
+                    <th>Status</th>
+                    <th width="150">Action</th>
+                </tr>
+            </thead>
+            <tbody>
+            @forelse($courseUsers as $courseUser)
+                <tr>
+                    <td>{{ $courseUser->user->name ?? '-' }}</td>
+                    <td>{{ $courseUser->user->email ?? '-' }}</td>
+                    <td>{{ $courseUser->course->title ?? '-' }}</td>
+                    <td>{{ $courseUser->paid_date ? $courseUser->paid_date->format('d M Y') : '-' }}</td>
+                    <td>{{ $courseUser->expiry_date ? $courseUser->expiry_date->format('d M Y') : '-' }}</td>
+                    <td><span class="label label-info">{{ ucfirst($courseUser->plan) }}</span></td>
+                    <td><strong>#{{ number_format($courseUser->paid_amount, 2) }}</strong></td>
+                    <td>
+                        @if($courseUser->status)
+                            <span class="label label-success">Active</span>
+                        @else
+                            <span class="label label-danger">Inactive</span>
+                        @endif
+                    </td>
+                    <td>
+                        {!! Form::open(['route' => ['courseUsers.destroy', $courseUser->id], 'method' => 'delete', 'style' => 'display:inline']) !!}
+                        <div class='btn-group btn-group-sm'>
+                            <a href="{{ route('courseUsers.show', [$courseUser->id]) }}" class='btn btn-info' title="View">
+                               <i class="fa fa-eye"></i>
+                            </a>
+                            <a href="{{ route('courseUsers.edit', [$courseUser->id]) }}" class='btn btn-warning' title="Edit">
+                               <i class="fa fa-edit"></i>
+                            </a>
+                            {!! Form::button('<i class="fa fa-trash"></i>', [
+                                'type' => 'submit',
+                                'class' => 'btn btn-danger',
+                                'title' => 'Delete',
+                                'onclick' => "return confirm('Are you sure you want to delete this subscription?')"
+                            ]) !!}
+                        </div>
+                        {!! Form::close() !!}
+                    </td>
+                </tr>
+            @empty
+                <tr>
+                    <td colspan="9" class="text-center">No subscriptions found</td>
+                </tr>
+            @endforelse
+            </tbody>
+        </table>
+    </div>
 </div>

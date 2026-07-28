@@ -10,6 +10,11 @@ use Illuminate\Http\Request;
 use Flash;
 use Response;
 
+
+use App\Models\CourseUser; // <-- ADD THIS LINE
+use App\Models\User;       // <-- ADD THIS TOO FOR SAFETY
+use App\Models\Course;     // <-- ADD THIS TOO
+
 class CourseUserController extends AppBaseController
 {
     /** @var  CourseUserRepository */
@@ -28,13 +33,12 @@ class CourseUserController extends AppBaseController
      * @return Response
      */
     public function index(Request $request)
-    {
-        $courseUsers = $this->courseUserRepository->all();
+{
+    $courseUsers = CourseUser::with(['user', 'course'])->get(); // ADD with()
 
-        return view('course_users.index')
-            ->with('courseUsers', $courseUsers);
-    }
-
+    return view('course_users.index')
+        ->with('courseUsers', $courseUsers);
+}
     /**
      * Show the form for creating a new CourseUser.
      *
