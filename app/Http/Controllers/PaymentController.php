@@ -96,22 +96,28 @@ class PaymentController extends AppBaseController
                     'status' => 'success'
                 ]
             );
+// 2. Enroll user to course with correct paid_amount
+$course = Course::find($course_id);
+$finalPrice = $responseData->data->amount / 100; // Paystack returns in kobo, so divide by 100
 
-            // 2. Enroll user to course
-            $course = Course::find($course_id);
-            if($course && !$course->users()->where('user_id', $user_id)->exists()){
-                $course->users()->attach($user_id); 
-            }
+if($course && !$course->users()->where('user_id', $user_id)->exists()){
+    $course->users()->attach($user_id, [
+        'paid_amount' => $finalPrice,
+        'paid_date' => now(),
+        'expiry_date' => now()->addYear(), // change this if your course has different duration
+        'plan' => 'full',
+        'status' => 'active'
+    ]); 
+}
 
-          session()->flash('success', 'Payment successful! You are now enrolled in this course.');
-            return redirect()->route('courses.show', $course_id);
+session()->flash('success', 'Payment successful! You are now enrolled in this course.');
+return redirect()->route('courses.show', $course_id);
         }
-                 else
+        else
         {
             Flash::error('Payment failed. Please try again.');
             return redirect()->route('courses.index');
         }
     }
-
     // ... rest of your CRUD functions stay the same
 }
