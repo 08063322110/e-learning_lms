@@ -157,4 +157,5 @@ class Course extends Model
     {
         return $this->hasMany('App\Models\Item');
     }
+    
 }
