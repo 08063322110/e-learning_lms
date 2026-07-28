@@ -2,8 +2,6 @@
 
 @section('content')
 
-
-
 <div class="col-md-12">
 @php
     $currentRoute = Route::currentRouteName();
@@ -24,7 +22,7 @@
       </a>
   </li>
 
-  @if (Auth::check() AND (Auth::user()->id == $course->user_id || Auth::user()->role_id < 3 )) 
+  @if (Auth::check() && (Auth::user()->id == $course->user_id || Auth::user()->role_id < 3 )) 
     <li role="presentation">
         <a href="{{route('courses.subscribers', ['course_id' => $course->id])}}"
            style="{{ $currentRoute == 'courses.subscribers' ? 'background:#337ab7; color:#fff; padding:10px 15px; border-radius:4px; display:block;' : 'padding:10px 15px; display:block;' }}">
@@ -35,40 +33,66 @@
 </ul>
 </div>
 
-
 <div class="content" >
 
-    <h2 style="margin-top: 25px; margin-bottom: 20px;">{{ $course->title }}</h2>
+    <h2 style="margin-top: 25px; margin-bottom: 20px;">{{ $course->title }} - Subscribers</h2>
 
+    <div class="table-responsive">
     <table class="table table-bordered table-striped">
         <thead>
             <tr>
                 <th>Name</th>
                 <th>Email</th>
-                <th>Gender</th>
-                <th>Amount</th>
+                <th>Course</th>
+                <th>Paid Date</th>
+                <th>Expiry Date</th>
+                <th>Plan</th>
+                <th>Paid Amount</th>
+                <th>Status</th>
+                <th width="120">Action</th>
             </tr>
         </thead>
 
         <tbody>
-        @forelse($subscribers as $subscriber)
+        @forelse($courseUsers as $user)
             <tr>
-                <td>{{ $subscriber->name }}</td>
-                <td>{{ $subscriber->email }}</td>
-                <td>{{ $subscriber->gender }}</td>
-                {{-- <td>${{ $subscriber->pivot->paid_amount }}</td> --}}
-                <td>${{ number_format($subscriber->pivot->paid_amount ?? 0, 2) }}</td>
+                <td>{{ $user->name }}</td>
+                <td>{{ $user->email }}</td>
+                <td>{{ $course->title }}</td>
+                <td>{{ $user->pivot->paid_date ? \Carbon\Carbon::parse($user->pivot->paid_date)->format('M d, Y') : '-' }}</td>
+                <td>{{ $user->pivot->expiry_date ? \Carbon\Carbon::parse($user->pivot->expiry_date)->format('M d, Y') : '-' }}</td>
+                <td>{{ ucfirst($user->pivot->plan ?? '-') }}</td>
+                <td>${{ number_format($user->pivot->paid_amount ?? 0, 2) }}</td>
+                <td>
+                    <span class="label label-{{ $user->pivot->status == 'active' ? 'success' : 'default' }}">
+                        {{ ucfirst($user->pivot->status ?? 'inactive') }}
+                    </span>
+                </td>
+                <td>
+                    {{-- View --}}
+                    <a href="{{ route('users.show', $user->id) }}" class="btn btn-info btn-xs" title="View User">
+                        <i class="glyphicon glyphicon-eye-open"></i>
+                    </a>
+
+                    {{-- Delete / Remove from course --}}
+                    <form action="{{ route('courses.unsubscribe', ['course_id' => $course->id, 'user_id' => $user->id]) }}" 
+                          method="POST" style="display:inline" onsubmit="return confirm('Remove this subscriber from course?')">
+                        @csrf
+                        @method('DELETE')
+                        <button type="submit" class="btn btn-danger btn-xs" title="Remove">
+                            <i class="glyphicon glyphicon-trash"></i>
+                        </button>
+                    </form>
+                </td>
             </tr>
         @empty
             <tr>
-                <td colspan="4" class="text-center">
-                    No subscribers found.
-                </td>
+                <td colspan="9" class="text-center">No subscribers found.</td>
             </tr>
         @endforelse
         </tbody>
-
     </table>
+    </div>
 
 </div>
 

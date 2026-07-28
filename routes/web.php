@@ -59,3 +59,5 @@ Route::resource('coupons', 'CouponController');
 // Route::post('/pay', 'PaymentController@redirectToGateway')->name('pay');
 Route::get('/payment/callback', 'PaymentController@handleGatewayCallback')->name('paymentCallback');
 Route::post('/pay', 'PaymentController@redirectToGateway')->name('pay'); // keep this as POST
+
+Route::delete('courses/{course_id}/unsubscribe/{user_id}', 'CourseController@unsubscribe')->name('courses.unsubscribe');

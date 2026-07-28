@@ -94,10 +94,12 @@ class User extends Model
             return $this->belongsTo('App\Models\Role');
     }
 
-      public function courses()
-    {
-        return $this->belongsToMany('App\Models\Course');
-    }
+     public function courses()
+{
+    return $this->belongsToMany(Course::class, 'course_users') // ADD 'course_users' here
+                ->withPivot('plan', 'paid_date', 'expiry_date', 'paid_amount', 'status', 'user_account_id', 'created_at')
+                ->withTimestamps();
+}
 
        public function comments()
     {

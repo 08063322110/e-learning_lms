@@ -133,20 +133,12 @@ class Course extends Model
     return $this->belongsTo('App\Models\User');
     }
 
-   public function users()
-    {
-        return $this->belongsToMany('App\Models\User')
-        ->withPivot('paid_amount')
-        ->withPivot('paid_amount')
-        ->withPivot('paid_date')
-        ->withPivot('expiry_date')
-        ->withPivot('plan')
-        ->withPivot('created_at')
-        ->withPivot('user_account_id')
-        ->withPivot('user_account_id')
-        ;
-    }
-
+  public function users()
+{
+    return $this->belongsToMany(User::class, 'course_users')
+                ->withPivot('plan', 'paid_date', 'expiry_date', 'paid_amount', 'status', 'user_account_id') // paid_amount must be here
+                ->withTimestamps();
+}
        public function comments()
     {
         return $this->hasMany('App\Models\Comment');

@@ -57,21 +57,11 @@ class CourseController extends AppBaseController
     ->with('item', $item);
     }
 
-  public function subscribers ($course_id)
+  public function subscribers($course_id)
 {
-    $course = $this->courseRepository->find($course_id);
-
-    if (empty($course)) {
-        Flash::error('Course not found');
-        return redirect()->back();
-    }
-
-    // Load users with pivot data
-    $subscribers = $course->users()->withPivot('paid_amount')->get();
-
-    return view('courses.subscribers')
-        ->with('course', $course)
-        ->with('subscribers', $subscribers);
+    $course = Course::findOrFail($course_id);
+    $courseUsers = $course->users; // this uses the relationship with 'course_users'
+    return view('courses.subscribers', compact('course', 'courseUsers'));
 }
         
    public function contents($course_id)
@@ -221,6 +211,15 @@ public function update(Request $request, $id)
     $course = $this->courseRepository->update($input, $id);
 }
 
+public function unsubscribe($course_id, $user_id)
+{
+    $course = Course::findOrFail($course_id);
+    $course->users()->detach($user_id); // only removes from this course
+
+    Flash::success('Subscriber removed successfully.');
+    return redirect()->back();
+}
+
     public function destroy($id)
     {
         $course = $this->courseRepository->find($id);
@@ -237,4 +236,6 @@ public function update(Request $request, $id)
 
         return redirect(route('courses.index'));
     }
+
+    
 }
