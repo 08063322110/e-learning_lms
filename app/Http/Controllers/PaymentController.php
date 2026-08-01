@@ -106,7 +106,7 @@ if($course && !$course->users()->where('user_id', $user_id)->exists()){
         'paid_date' => now(),
         'expiry_date' => now()->addYear(), // change this if your course has different duration
         'plan' => 'full',
-        'status' => 'active'
+        'status' => '1'
     ]); 
 }
 
