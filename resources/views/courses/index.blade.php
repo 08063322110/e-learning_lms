@@ -9,8 +9,9 @@
                 </div>
                 <div class="col-sm-6">
                     <a class="btn btn-primary float-right"
-                       href="{{ route('courses.create') }}">
-                        Add New
+       @if(Auth::user()->role_id < 3)
+    <a class="btn btn-primary" href="{{ route('courses.create') }}">Add New</a>
+@endif
                     </a>
                 </div>
             </div>

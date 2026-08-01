@@ -63,27 +63,37 @@
                 <td>{{ $user->pivot->expiry_date ? \Carbon\Carbon::parse($user->pivot->expiry_date)->format('M d, Y') : '-' }}</td>
                 <td>{{ ucfirst($user->pivot->plan ?? '-') }}</td>
                 <td>${{ number_format($user->pivot->paid_amount ?? 0, 2) }}</td>
+             
                 <td>
-                    <span class="label label-{{ $user->pivot->status == 'active' ? 'success' : 'default' }}">
-                        {{ ucfirst($user->pivot->status ?? 'inactive') }}
-                    </span>
-                </td>
-                <td>
-                    {{-- View --}}
-                    <a href="{{ route('users.show', $user->id) }}" class="btn btn-info btn-xs" title="View User">
-                        <i class="glyphicon glyphicon-eye-open"></i>
-                    </a>
+    @if($user->pivot->status == 1)
+        <span class="badge badge-success">Active</span>
+    @else
+        <span class="badge badge-secondary">Inactive</span>
+    @endif
+</td>
+              <td class="text-nowrap">
+    {{-- View --}}
+    <a href="{{ route('users.show', $user->id) }}"
+       class="btn btn-info btn-sm"
+       title="View User">
+        <i class="fas fa-eye"></i>
+    </a>
 
-                    {{-- Delete / Remove from course --}}
-                    <form action="{{ route('courses.unsubscribe', ['course_id' => $course->id, 'user_id' => $user->id]) }}" 
-                          method="POST" style="display:inline" onsubmit="return confirm('Remove this subscriber from course?')">
-                        @csrf
-                        @method('DELETE')
-                        <button type="submit" class="btn btn-danger btn-xs" title="Remove">
-                            <i class="glyphicon glyphicon-trash"></i>
-                        </button>
-                    </form>
-                </td>
+    {{-- Delete --}}
+    <form action="{{ route('courses.unsubscribe', ['course_id' => $course->id, 'user_id' => $user->id]) }}"
+          method="POST"
+          style="display:inline-block;"
+          onsubmit="return confirm('Remove this subscriber from course?')">
+        @csrf
+        @method('DELETE')
+
+        <button type="submit"
+                class="btn btn-danger btn-sm"
+                title="Remove">
+            <i class="fas fa-trash"></i>
+        </button>
+    </form>
+</td>
             </tr>
         @empty
             <tr>

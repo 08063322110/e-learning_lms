@@ -115,12 +115,18 @@ class CourseController extends AppBaseController
     }
 
     public function index(Request $request)
-    {
-        $courses = $this->courseRepository->all();
-
-        return view('courses.index')
-            ->with('courses', $courses);
+{
+    if(Auth::user()->role_id == 4 && $request->has('my')){
+        // STUDENT: Show only enrolled courses
+        $courseIds = \App\Models\CourseUser::where('user_id', Auth::id())->pluck('course_id');
+        $courses = Course::whereIn('id', $courseIds)->get();
+    }else{
+        // ADMIN/TEACHER/STUDENT BROWSE: Show all courses
+        $courses = Course::all();
     }
+
+    return view('courses.index')->with('courses', $courses);
+}
 
     /**
      * Show the form for creating a new Course.
