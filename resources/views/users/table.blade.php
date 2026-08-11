@@ -27,8 +27,8 @@
             <td>{{ $user->is_subscribed }}</td>
             <td>{{ $user->email_verified_at }}</td>
             <td>{{ $user->view_count }}</td>
-            <td>{{ $user->role['name']}}</td>
-                <td width="120">
+            <td>{{ $user->role->name ?? 'No Role' }}</td>
+            <td width="120">
                     {!! Form::open(['route' => ['users.destroy', $user->id], 'method' => 'delete']) !!}
                     <div class='btn-group'>
                         <a href="{{ route('users.show', [$user->id]) }}"
