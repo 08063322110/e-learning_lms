@@ -17,4 +17,21 @@ class CourseController extends Controller
             'data' => $courses
         ]);
     }
+
+    public function show($id)
+{
+    $course = Course::find($id);
+
+    if (!$course) {
+        return response()->json([
+            'success' => false,
+            'message' => 'Course not found'
+        ], 404);
+    }
+
+    return response()->json([
+        'success' => true,
+        'data' => $course
+    ]);
+}
 }

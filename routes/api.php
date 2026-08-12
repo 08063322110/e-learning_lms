@@ -19,4 +19,5 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 });
 
 Route::get('/courses', 'CourseController@index');
+Route::get('/courses/{id}', 'CourseController@show');
 
