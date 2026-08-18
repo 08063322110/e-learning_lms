@@ -67,8 +67,8 @@ class RouteServiceProvider extends ServiceProvider
 {
     Route::prefix('api')
         ->middleware('api')
-        ->as('api.') // optional but recommended (video uses it)
-        ->namespace($this->namespace . '\\API')
+        ->as('api.') // optional but recommended.
+        // ->namespace($this->namespace . '\\API')
         ->group(base_path('routes/api.php'));
 }
 }

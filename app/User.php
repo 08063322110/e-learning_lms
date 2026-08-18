@@ -25,7 +25,9 @@ class User extends Authenticatable
     'view_count',
     'gender',
     'date_of_birth',
-    'is_subscribed'
+    'is_subscribed', 
+    'api_token'
+
 ];
 
     /**
@@ -34,7 +36,9 @@ class User extends Authenticatable
      * @var array
      */
     protected $hidden = [
-        'password', 'remember_token',
+        'password', 
+        'remember_token',
+        'api_token',
     ];
 
     /**
