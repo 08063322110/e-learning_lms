@@ -29,6 +29,7 @@ Route::resource('comments', 'CommentController');
 
 // Courses
 Route::resource('courses', 'CourseController');
+
 Route::get('courses/contents/{course_id}', 'CourseController@contents')->name('courses.contents');
 Route::get('courses/subscribers/{course_id}', 'CourseController@subscribers')->name('courses.subscribers');
 Route::get('courses/items/{course_id}/{item_id}', 'CourseController@items')->name('courses.items');

@@ -24,8 +24,13 @@
             </td>
 
             <td>{{ $user->gender }}</td>
-            <td>{{ $user->is_subscribed }}</td>
-            <td>{{ $user->email_verified_at }}</td>
+           <td>
+    {{ $user->is_subscribed ? 'Yes' : 'No' }}
+</td>
+
+<td>
+    {{ $user->email_verified_at ?? 'Not Verified' }}
+</td>
             <td>{{ $user->view_count }}</td>
             <td>{{ $user->role->name ?? 'No Role' }}</td>
             <td width="120">
