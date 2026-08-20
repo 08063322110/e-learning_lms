@@ -79,6 +79,7 @@ public function store(Request $request)
         'data' => $course
     ], 201);
 }
+
 public function update(Request $request, $id)
 {
     // Check if the logged-in user is authorized
@@ -118,28 +119,9 @@ public function update(Request $request, $id)
         'discount_price' => 'required|numeric',
         'actual_price' => 'required|numeric',
     ]);
-$validated = $request->validate([
-    'category_id' => 'required|integer',
-    'title' => 'required|string|max:191',
-    'sub_title' => 'nullable|string|max:191',
-    'description' => 'required|string',
-    'about_instructor' => 'nullable|string',
-    'playlist_url' => 'required|string|max:191',
-    'tags' => 'nullable|string|max:191',
-    'photo' => 'nullable|string|max:191',
-    'promo_video_url' => 'nullable|string|max:191',
-    'creator_status' => 'required|string|max:191',
-    'admin_status' => 'required|string|max:191',
-    'what_will_students_learn' => 'nullable|string',
-    'target_students' => 'nullable|string',
-    'requirements' => 'nullable|string',
-    'discount_price' => 'required|numeric',
-    'actual_price' => 'required|numeric',
-]);
+    
+    $validated['photo'] = $validated['photo'] ?? '';
 
-$validated['photo'] = $validated['photo'] ?? '';
-
-$course->update($validated);
     // Update the course
     $course->update($validated);
 
@@ -166,4 +148,5 @@ public function destroy($id)
         'message' => 'Course deleted successfully'
     ], 200);
 }
+
 }
