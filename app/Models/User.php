@@ -24,14 +24,20 @@ use Illuminate\Database\Eloquent\Model as Model;
  */
 class User extends Model
 {
+    /**
+     * Hide sensitive fields when the User model
+     * is converted to JSON.
+     */
+    protected $hidden = [
+        'password',
+        'api_token',
+        'remember_token',
+    ];
 
     public $table = 'users';
-    
+
     const CREATED_AT = 'created_at';
     const UPDATED_AT = 'updated_at';
-
-
-
 
     public $fillable = [
         'name',
@@ -87,21 +93,32 @@ class User extends Model
         'view_count' => 'required|integer',
         'role_id' => 'required|integer',
         'remember_token' => 'nullable|string|max:100'
-    ];  
+    ];
 
     public function role()
     {
-            return $this->belongsTo('App\Models\Role');
+        return $this->belongsTo('App\Models\Role');
     }
 
-     public function courses()
-{
-    return $this->belongsToMany(Course::class, 'course_users') // ADD 'course_users' here
-                ->withPivot('plan', 'paid_date', 'expiry_date', 'paid_amount', 'status', 'user_account_id', 'created_at')
-                ->withTimestamps();
-}
+    public function courses()
+    {
+        return $this->belongsToMany(
+            Course::class,
+            'course_users'
+        )
+        ->withPivot(
+            'plan',
+            'paid_date',
+            'expiry_date',
+            'paid_amount',
+            'status',
+            'user_account_id',
+            'created_at'
+        )
+        ->withTimestamps();
+    }
 
-       public function comments()
+    public function comments()
     {
         return $this->hasMany('App\Models\Comment');
     }
