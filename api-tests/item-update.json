@@ -1,0 +1,6 @@
+{
+    "course_id": 15,
+    "title": "Introduction to the Course - Updated",
+    "url": "https://example.com/lesson-1-updated",
+    "description": "This lesson has been updated through the LMS API."
+}

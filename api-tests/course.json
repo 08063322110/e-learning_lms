@@ -1,0 +1,17 @@
+{
+    "admin_status":  "pending",
+    "promo_video_url":  "https://example.com/video",
+    "actual_price":  10000,
+    "sub_title":  "Testing Course Creation",
+    "title":  "API Test Course",
+    "tags":  "api, laravel, testing",
+    "playlist_url":  "https://example.com/playlist",
+    "description":  "This course is being created through the LMS API.",
+    "discount_price":  5000,
+    "target_students":  "Beginners learning Laravel API development.",
+    "what_will_students_learn":  "Students will learn how to use the LMS API.",
+    "requirements":  "Basic Laravel knowledge.",
+    "creator_status":  "pending",
+    "category_id":  1,
+    "about_instructor":  "API testing instructor"
+}
