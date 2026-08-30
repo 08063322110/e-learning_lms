@@ -7,6 +7,10 @@ use App\Http\Controllers\API\CategoryController;
 use App\Http\Controllers\API\ItemController;
 use App\Http\Controllers\API\CommentController;
 use App\Http\Controllers\API\ViewController;
+use App\Http\Controllers\API\CourseUserController;
+use App\Http\Controllers\API\PaymentController;
+
+
 
 /*
 |--------------------------------------------------------------------------
@@ -56,3 +60,19 @@ Route::get('/views/{id}', [ViewController::class, 'show']);
 Route::middleware('auth:api')->post('/views', [ViewController::class, 'store']);
 Route::middleware('auth:api')->put('/views/{id}', [ViewController::class, 'update']);
 Route::middleware('auth:api')->delete('/views/{id}', [ViewController::class, 'destroy']);
+
+
+Route::get('/course-users', [CourseUserController::class, 'index']);
+Route::get('/course-users/{id}', [CourseUserController::class, 'show']);
+
+Route::middleware('auth:api')->post('/course-users', [CourseUserController::class, 'store']);
+Route::middleware('auth:api')->put('/course-users/{id}', [CourseUserController::class, 'update']);
+Route::middleware('auth:api')->delete('/course-users/{id}', [CourseUserController::class, 'destroy']);
+
+
+Route::get('/payments', [PaymentController::class, 'index']);
+Route::get('/payments/{id}', [PaymentController::class, 'show']);
+
+Route::middleware('auth:api')->post('/payments', [PaymentController::class, 'store']);
+Route::middleware('auth:api')->put('/payments/{id}', [PaymentController::class, 'update']);
+Route::middleware('auth:api')->delete('/payments/{id}', [PaymentController::class, 'destroy']);
