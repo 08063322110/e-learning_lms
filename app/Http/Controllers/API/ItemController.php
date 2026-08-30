@@ -85,41 +85,55 @@ class ItemController extends Controller
      */
 
     public function update(Request $request, $id)
-    {
-        $user = $request->user();
+{
+    $user = $request->user();
 
-        // Only role 1 and role 2 can update course content
-        if (!in_array($user->role_id, [1, 2])) {
-            return response()->json([
-                'success' => false,
-                'message' => 'You are not authorized to update an item.'
-            ], 403);
-        }
-
-        $item = Item::find($id);
-
-        if (!$item) {
-            return response()->json([
-                'success' => false,
-                'message' => 'Item not found'
-            ], 404);
-        }
-
-        $validated = $request->validate([
-            'course_id' => 'required|integer|exists:courses,id',
-            'title' => 'required|string|max:191',
-            'url' => 'nullable|string|max:191',
-            'description' => 'nullable|string'
-        ]);
-
-        $item->update($validated);
-
+    // Only role 1 and role 2 can update course content
+    if (!in_array($user->role_id, [1, 2])) {
         return response()->json([
-            'success' => true,
-            'message' => 'Item updated successfully',
-            'data' => $item
-        ], 200);
+            'success' => false,
+            'message' => 'You are not authorized to update an item.'
+        ], 403);
     }
+
+    $item = Item::find($id);
+
+    if (!$item) {
+        return response()->json([
+            'success' => false,
+            'message' => 'Item not found'
+        ], 404);
+    }
+
+    // Get raw JSON body
+    $data = json_decode($request->getContent(), true);
+
+    // Make sure JSON is valid
+    if (json_last_error() !== JSON_ERROR_NONE) {
+        return response()->json([
+            'success' => false,
+            'message' => 'Invalid JSON data.',
+            'error' => json_last_error_msg()
+        ], 422);
+    }
+
+    // Validate decoded JSON
+    $validated = validator($data, [
+        'course_id' => 'required|integer|exists:courses,id',
+        'title' => 'required|string|max:191',
+        'url' => 'nullable|string|max:191',
+        'description' => 'nullable|string'
+    ])->validate();
+
+    // Update the item
+    $item->update($validated);
+
+    return response()->json([
+        'success' => true,
+        'message' => 'Item updated successfully',
+        'data' => $item
+    ], 200);
+}
 
     /**
      * Delete an Item.
